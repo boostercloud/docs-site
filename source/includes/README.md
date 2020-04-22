@@ -7,7 +7,7 @@
 5. [Entities](_05entities.md): Design the domain model of your application.
 6. [Read Models](_06read-models.md): Design the Read API of your application.
 7. [Authentication and Authorization](_07auth.md): Limiting access.
-8. [Deployment](_08deployment.md): Deploy your application!
+8. [Deployment](_08-deployment.md): Deploy your application!
 9. [REST API reference](_09-rest-api.md): REST API reference.
 
 You can also visit the [Frequently Asked Questions (FAQ)](_faq.md), where you'll find questions and common issues people
