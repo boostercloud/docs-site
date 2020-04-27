@@ -16,9 +16,11 @@ jobs:
           ruby-version: "2.7"
       - run: bundle install
       - run: bundle exec middleman build --clean
+      - name: Debug
+        run: ls
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN_ACTION }}
           BRANCH: gh-pages
-          FOLDER: build
+          FOLDER: ./build
