@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.6"
+      - run: bundle install
       - run: bundle exec middleman build --clean
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
