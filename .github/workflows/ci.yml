@@ -14,8 +14,17 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.7"
-      - run: bundle install
-      - run: bundle exec middleman build --clean
+      - name: Cache gems
+        uses: actions/cache@preview
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      - name: Build docs
+        run: |
+          bundle install
+          bundle exec middleman build --clean
       - name: Debug
         run: ls
       - name: Deploy to GitHub Pages
@@ -23,4 +32,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN_ACTION }}
           BRANCH: gh-pages
-          FOLDER: ./build
+          FOLDER: build
