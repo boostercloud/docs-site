@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Booster Framework Docs</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -196,309 +196,684 @@
   color: #f92672;
 }
     </style>
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all.js"></script>
+    <link href="stylesheets/screen-054045c6.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-bccf8c07.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all_nosearch-c275c2f6.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" alt="Navbar" />
+        <img src="images/navbar-cad8cdcb.png" alt="Navbar" />
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo.png" class="logo" alt="Logo" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
-        </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
+      <img src="images/logo-ac61b728.png" class="logo" alt="Logo" />
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            <a href="#getting-started" class="toc-h1 toc-link" data-title="Getting Started">Getting Started</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#architecture-and-core-concepts" class="toc-h1 toc-link" data-title="Architecture and core concepts">Architecture and core concepts</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#commands-and-command-handlers-the-write-pipeline" class="toc-h1 toc-link" data-title="Commands and Command Handlers - The Write Pipeline">Commands and Command Handlers - The Write Pipeline</a>
+          </li>
+          <li>
+            <a href="#events" class="toc-h1 toc-link" data-title="Events">Events</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
-                  </li>
-                  <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#event-handlers" class="toc-h2 toc-link" data-title="Event Handlers">Event Handlers</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#entities" class="toc-h1 toc-link" data-title="Entities">Entities</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#reading-entity-quot-state-quot" class="toc-h2 toc-link" data-title="Reading Entity "state"">Reading Entity "state"</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#read-models-the-read-pipeline" class="toc-h1 toc-link" data-title="Read Models - The Read Pipeline">Read Models - The Read Pipeline</a>
+          </li>
+          <li>
+            <a href="#authentication-and-authorization" class="toc-h1 toc-link" data-title="Authentication and Authorization">Authentication and Authorization</a>
+          </li>
+          <li>
+            <a href="#deploying" class="toc-h1 toc-link" data-title="Deploying">Deploying</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#configure-your-provider-credentials" class="toc-h2 toc-link" data-title="Configure your provider credentials">Configure your provider credentials</a>
+                  </li>
+                  <li>
+                    <a href="#deploy-your-project" class="toc-h2 toc-link" data-title="Deploy your project">Deploy your project</a>
+                  </li>
+                  <li>
+                    <a href="#deleting-your-cloud-stack" class="toc-h2 toc-link" data-title="Deleting your cloud stack">Deleting your cloud stack</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#booster-cloud-framework-rest-api" class="toc-h1 toc-link" data-title="Booster Cloud Framework REST API">Booster Cloud Framework REST API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#authentication-and-authorization-api" class="toc-h2 toc-link" data-title="Authentication and Authorization API">Authentication and Authorization API</a>
+                  </li>
+                  <li>
+                    <a href="#write-api-commands-submission" class="toc-h2 toc-link" data-title="Write API (commands submission)">Write API (commands submission)</a>
+                  </li>
+                  <li>
+                    <a href="#read-api-retrieve-a-read-model" class="toc-h2 toc-link" data-title="Read API (retrieve a read model)">Read API (retrieve a read model)</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#frequently-asked-questions" class="toc-h1 toc-link" data-title="Frequently asked questions">Frequently asked questions</a>
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li>An open-source initiative</li>
+            <li>by the team from <a href='https://www.theagilemonkeys.com'>The Agile Monkeys.</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+        <h1 id='getting-started'>Getting Started</h1>
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Go to your new project folder (<code>cd &lt;name of your project&gt;</code>) to see the project structure. You&#39;ll see something like this:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight plaintext"><code>$ tree
+.
+|____package.json
+|____tsconfig.json
+|____src
+| |____migrations
+| |____config
+| | |____config.ts
+| |____read-models
+| |____commands
+| |____events
+| |____entities
+</code></pre>
+<p>Let&#39;s install the Booster CLI and bootstrap your first project:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<ol>
+<li>Install the Booster CLI tool if you haven’t yet:</li>
+</ol>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<p><code>npm install -g @boostercloud/cli</code></p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<ol>
+<li>Create a new Booster project</li>
+</ol>
+
+<p><code>boost new:project &lt;name of your project&gt;</code></p>
+
+<p>Project structure or code generators are not enforced, but they&#39;re recommended to build a community-shared set of conventions.</p>
+<h1 id='architecture-and-core-concepts'>Architecture and core concepts</h1>
+<p>Booster’s architecture is heavily inspired by the <a href="https://www.martinfowler.com/bliki/CQRS.html">CQRS</a> and <a href="https://martinfowler.com/eaaDev/EventSourcing.html">Event Sourcing</a> patterns.
+These patterns have proven to work well for highly-distributed high available systems, being a tool to make resilient
+software that is fast and scales very well, especially in distributed scenarios.</p>
+
+<p>The Booster high-level architecture diagram looks like this:
+<img src="images/booster-arch-826f249e.png" alt="Booster architecture" /></p>
+
+<p>With these patterns combined, in a Booster Application:</p>
+
+<ul>
+<li>The <em>write operations</em> are separated from the <em>read operations</em> (called <a href="#commands-and-command-handlers-the-write-pipeline"><em>commands</em></a> and <a href="#read-models-the-read-pipeline"><em>queries</em></a>, respectively) and dependencies are limited to data.</li>
+<li>Instead of storing and mutating the data in a single stateful database, Booster stores the state as a virtually infinite append-only list of events (think of your bank account, where all the movements are stored as individual movements).</li>
+<li>The event stream is the system source of truth, and the &quot;current state&quot; can be queried anytime reducing it on the fly as <a href="#entities">entities</a>.</li>
+</ul>
+
+<p>This architecture has many advantages:</p>
+
+<ul>
+<li>The whole architecture is designed for high availability and eventual consistency.</li>
+<li>The code is much easier to change because modules are loosely coupled.</li>
+<li>Old code can live along with new code without affecting each other, so it&#39;s easier to smoothly test and introduce new features.</li>
+<li>System boundaries are clearly defined and are easy to maintain.</li>
+</ul>
+
+<p>It&#39;s usually non-trivial to get event-driven architecture design right and implement a maintainable event-driven solution that scales, but Booster has been built around these concepts and will greatly help you and your team to keep things under control. Booster integrates event-driven design in a way that simplifies their usage and understanding.</p>
+<h1 id='commands-and-command-handlers-the-write-pipeline'>Commands and Command Handlers - The Write Pipeline</h1>
+<blockquote>
+<p>You can create a command manually or using the generator provided with the <code>boost</code> CLI tool. Let&#39;s create a command to confirm a payment:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>boost new:command ConfirmPayment --fields cartID:UUID confirmationToken:string
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>You can specify as many fields as you want, and Booster will generate a class for you in the <code>src/commands</code> folder that more or less will look like this:</p>
 </blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Command</span><span class="p">({</span>
+  <span class="na">authorize</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">ConfirmPayment</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kd">constructor</span><span class="p">(</span><span class="k">readonly</span> <span class="nx">cartID</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span> <span class="k">readonly</span> <span class="nx">confirmationToken</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{}</span>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+  <span class="k">public</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">register</span><span class="p">:</span> <span class="nx">Register</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="c1">// The `register` parameter injected can be used to register any number of events.</span>
+    <span class="nx">register</span><span class="p">.</span><span class="nx">events</span><span class="p">(</span><span class="k">new</span> <span class="nx">CartPaid</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">cartId</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">confirmationToken</span><span class="p">))</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>Commands and Command Handlers define the <strong>write</strong> API of your application (highlighted in yellow in the diagram). Commands are objects that are sent to the <code>/commands</code> endpoint. The usage of this endpoint is explained <a href="#booster-cloud-framework-rest-api">in the REST API section</a>.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>Similarly to controllers in a traditional <a href="https://www.martinfowler.com/eaaCatalog/modelViewController.html">MVC</a> architecture, commands are synchronously dispatched by a <em>handler</em> method, which will be in charge of validating the input and registering one or more <a href="#events">events</a> in the system. While command handlers can run arbitrary code, it is recommended to keep them small, focusing on data acceptance and delegating as much logic to <a href="#events">event handlers</a>.</p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+Event registration is not mandatory, but we <b>strongly</b> recommend registering at least one event for any possible final state, even in the case of a failure, to make your application activity easier to trace and debug.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>A command is a class, decorated with the <code>@Command</code> decorator, that defines a data structure
+and a <code>handle</code> method. The method will process the commands and optionally generate and persist
+one or more events to the event store.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+<p>Note how no magic happened in the generator. The only thing that required for Booster to know that this class is a
+command, is the <code>@Command</code> decorator. You could get the same result by writing the class yourself 😉</p>
+<h1 id='events'>Events</h1>
+<blockquote>
+<p>To create an event class, you can do the same thing that you did with a command, either manually, or with the generator, using the <code>boost</code> command line tool:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>  boost new:event &lt;name of the event&gt; --fields fieldName:fieldType
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Booster will generate a class for you in the <code>src/events</code> folder:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<pre class="highlight typescript tab-typescript"><code>  <span class="p">@</span><span class="nd">Event</span>
+  <span class="k">export</span> <span class="kr">class</span> <span class="nx">CartPaid</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="kd">constructor</span><span class="p">(</span><span class="k">readonly</span> <span class="nx">cartID</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span> <span class="k">readonly</span> <span class="nx">confirmationToken</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="k">public</span> <span class="nx">entityID</span><span class="p">():</span> <span class="nx">UUID</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">cartId</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre>
+<p>An event is a data structure that represents a <strong>fact</strong> and is the source of truth for your application. Instead of mutating your database, you store an event representing that mutation. Think of your bank account, instead of storing your balance in some database table, mutating the value every time you perform an operation, it stores events for each of them. The balance is then calculated on the fly and shown to you any time you request it. Two examples of events in your bank account would be:</p>
+
+<ul>
+<li><code>WithdrawMoney</code></li>
+<li><code>DepositMoney</code></li>
+</ul>
+
+<p>You can define as many event handler classes as you want to react to them. For example, imagine that a specific event represents that your account has reached zero. You can write a handler to notify the user by email. In a Booster application, it is recommended to write most your domain logic in event handlers.</p>
+
+<p>Notice the required <code>entityID</code> method. All events are grouped by their event type and the value returned by <code>entityID</code>. All events are somehow tied to a concept in your domain model, in our bank account example, this could be the account number.</p>
+
+<p>In the previous example, the <code>CartPaid</code> event has a <code>cartID</code> field, which then you will return in the <code>entityID</code> method. This allows booster to find this event when the system requests to build the state of a specific Cart.</p>
+
+<p>In most situations your event stream will be reduced to a domain model object, like that Cart (An <a href="#entities">Entity</a>), but there are some use cases on which the event stream is just related to a specific entity, for example, a register of sensor values in a weather station, which are related to the station, but the station has no specific value that needs to be reduced. You can implement the semantics that best suit your needs.</p>
+<h2 id='event-handlers'>Event Handlers</h2><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">EventHandler</span><span class="p">(</span><span class="nx">CartPaid</span><span class="p">)</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">CartPaidHandler</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">CartPaid</span><span class="p">,</span> <span class="nx">register</span><span class="p">:</span> <span class="nx">Register</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">register</span><span class="p">.</span><span class="nx">events</span><span class="p">(</span><span class="k">new</span> <span class="nx">OrderPreparationStarted</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">cartID</span><span class="p">))</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>You can react to events implementing an <strong>Event Handler</strong> class. An Event Handler is a regular class that is subscribed to an event with the decorator <code>@EventHandler(&lt;name of the event class&gt;</code>. Any time that a new event is added to the event store, the <code>handle</code> method in the event handler will be called with the instance of the event and the <code>register</code> object that can be used to emit new events. Event handlers can run arbitrary code and is where it is recommended to write most of the business logic in a reactive way.</p>
+<h1 id='entities'>Entities</h1>
+<blockquote>
+<p>To create an entity... You guessed it! We use the <code>boost</code> tool:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>boost new:entity &lt;name of the entity&gt; --fields fieldName:fieldType --reduces EventOne EventTwo EventThree
+</code></pre>
+<blockquote>
+<p>For instance, running the following command:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>boost new:entity Order --fields shippingAddress:Address orderItems:<span class="s2">"Array&lt;OrderItem&gt;"</span> --reduces OrderCreated
+</code></pre>
+<blockquote>
+<p>It will generate a class in the <code>src/entities</code> folder with the following structure:</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Entity</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">Order</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kd">constructor</span><span class="p">(</span><span class="k">readonly</span> <span class="nx">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span> <span class="k">readonly</span> <span class="nx">shippingAddress</span><span class="p">:</span> <span class="nx">Address</span><span class="p">,</span> <span class="k">readonly</span> <span class="nx">orderItems</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">OrderItem</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="p">@</span><span class="nd">Reduces</span><span class="p">(</span><span class="nx">OrderCreated</span><span class="p">)</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nx">createOrder</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">OrderCreated</span><span class="p">,</span> <span class="nx">previousOrder</span><span class="p">?:</span> <span class="nx">Order</span><span class="p">):</span> <span class="nx">Order</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">event</span><span class="p">.</span><span class="nx">order</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>Entities are not shown in the diagram because they&#39;re just a different view of the data in the events store.</p>
+
+<p>Entities represent domain model objects, that is, something that can be mapped to an object with semantics in your domain. Entities only exist conceptually, they&#39;re not explicitly stored in any database, but generated on the fly from a list of related <a href="#events">events</a>.</p>
+
+<p>Booster creates snapshots of the entities automatically under the hoods to reduce access times, but the developer doesn&#39;t has to worry about that.</p>
+
+<p>Examples of entities are:</p>
+
+<ul>
+<li>A Cart</li>
+<li>An Account</li>
+<li>A User</li>
+</ul>
+
+<p>As you can see, entities are also regular TypeScript classes, like the rest of the Booster artifacts.</p>
+
+<p>Take a look, entities have a special <strong>reducer function</strong> decorated with <code>@Reduces</code>,
+that will be triggered each time that a specific kind of event is generated.</p>
+
+<p>All projection functions receive:</p>
+
+<ul>
+<li>The event</li>
+<li>A possible previous state (note the <code>?</code> meaning that there could be no previous state. i.e. when the app is just starting)</li>
+</ul>
+
+<p>And it <strong>always</strong> must return a new entity. This function <strong>must be pure</strong>, which means that it cannot perform any side effects, only create a new object based on some conditions on the input data, and then return it.</p>
+<h2 id='reading-entity-quot-state-quot'>Reading Entity &quot;state&quot;</h2><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Command</span><span class="p">({</span>
+  <span class="na">authorize</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">MoveStock</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kd">constructor</span><span class="p">(</span><span class="k">readonly</span> <span class="nx">productSKU</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span> <span class="k">readonly</span> <span class="nx">fromLocationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span> <span class="k">readonly</span> <span class="nx">toLocationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span> <span class="k">readonly</span> <span class="nx">quantity</span><span class="p">:</span> <span class="kr">number</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="k">public</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">register</span><span class="p">:</span> <span class="nx">Register</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">productStock</span> <span class="o">=</span> <span class="nx">fetchEntitySnapshot</span><span class="p">(</span><span class="s1">'ProductStock'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">productSKU</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">productStock</span><span class="p">.</span><span class="nx">locations</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">fromLocationId</span><span class="p">].</span><span class="nx">count</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">quantity</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Enough stock, we confirm the movement</span>
+      <span class="nx">register</span><span class="p">.</span><span class="nx">events</span><span class="p">(</span><span class="k">new</span> <span class="nx">StockMovement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">productSKU</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">fromLocationId</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">toLocationID</span><span class="p">,</span> <span class="nx">quantity</span><span class="p">))</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// Not enough stock, we register this fact</span>
+      <span class="nx">register</span><span class="p">.</span><span class="nx">events</span><span class="p">(</span><span class="k">new</span> <span class="nx">FailedCommand</span><span class="p">({</span>
+        <span class="na">command</span><span class="p">:</span> <span class="k">this</span><span class="p">,</span>
+        <span class="na">reason</span><span class="p">:</span> <span class="s2">`Not enough stock in origin location`</span>
+      <span class="p">))</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>Booster provides a handy <code>fetchEntitySnapshot</code> method to check the value of an entity from any handler method in order to make domain-driven decisions.</p>
+<h1 id='read-models-the-read-pipeline'>Read Models - The Read Pipeline</h1>
+<blockquote>
+<p>TODO: (Not in the current release) To generate a Read Model you can use a read model generator. It works similarly than the entities generator:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>boost new:read-model &lt;name of the <span class="nb">read </span>model class&gt; --fields fieldName:fieldType --projects EntityOne EntityTwo
+</code></pre>
+<blockquote>
+<p>Using the generator will generate a class with the following structure in <code>src/read-models/&lt;name-of-the-read-model&gt;.ts</code>. For instance:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>boost new:read-model CartReadModel --fields id:UUID cartItems:<span class="s2">"Array&lt;CartItem&gt;"</span> paid:boolean --projects Cart
+</code></pre>
+<blockquote>
+<p>It will generate a class with the following structure:</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">ReadModel</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">CartReadModel</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kd">constructor</span><span class="p">(</span>
+    <span class="k">readonly</span> <span class="nx">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span>
+    <span class="k">readonly</span> <span class="nx">cartItems</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">CartItem</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="k">public</span> <span class="nx">paid</span><span class="p">:</span> <span class="kr">boolean</span>
+  <span class="p">)</span> <span class="p">{}</span>
+
+  <span class="p">@</span><span class="nd">Projection</span><span class="p">(</span><span class="nx">Cart</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">)</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nx">updateWithCart</span><span class="p">(</span><span class="nx">cart</span><span class="p">:</span> <span class="nx">Cart</span><span class="p">,</span> <span class="nx">oldCartReadModel</span><span class="p">?:</span> <span class="nx">CartReadModel</span><span class="p">):</span> <span class="nx">CartReadModel</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">CartReadModel</span><span class="p">(</span><span class="nx">cart</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">cart</span><span class="p">.</span><span class="nx">cartItems</span><span class="p">,</span> <span class="nx">cart</span><span class="p">.</span><span class="nx">paid</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>Read Models are cached data optimized for read operations and they&#39;re updated reactively when <a href="#entities">Entities</a> are updated by new <a href="#events">events</a>. They also define the <em>Read</em> API, the available REST endpoints and their structure.</p>
+
+<p>Read Models are classes decorated with the <code>@ReadModel</code> decorator that have one or more projection methods. A Projection is a method decorated with the <code>@Projection</code> decorator that, given a new entity value and (optionally) a previous read model state, generate a new read model value.</p>
+
+<p>Read models can be projected from multiple <a href="#entities">entities</a> as soon as they share some common key called <code>joinKey</code>.</p>
+
+<p>Read Model classes can also be created by hand and there are no restrictions regarding the place you put the files. The structure of the data is totally open and can be as complex as you can manage in your projection functions.</p>
+
+<p>Defining a read models enables a new REST Read endpoint that you can use to query or poll the read model records <a href="#booster-cloud-framework-rest-api">see the API documentation</a>.</p>
+<h1 id='authentication-and-authorization'>Authentication and Authorization</h1>
+<blockquote>
+<p>For example, the following command can be executed by anyone:</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Command</span><span class="p">({</span>
+  <span class="na">authorize</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">CreateComment</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>While this one can be executed by authenticated users that have the role <code>Admin</code> or <code>User</code>:</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Command</span><span class="p">({</span>
+  <span class="na">authorize</span><span class="p">:</span> <span class="p">[</span><span class="nx">Admin</span><span class="p">,</span> <span class="nx">User</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">UpdateUser</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre>
+<p>Authorization in Booster is done through roles. Every Command (and in the future, every ReadModel)
+has an <code>authorize</code> policy that tells Booster who can execute or access it. The policy is specified in the
+<code>@Command</code> decorator and consists of one of the following two values:</p>
+
+<ul>
+<li><code>&#39;all&#39;</code>: Meaning that the command is public: any user, both authenticated and anonymous, can execute it.</li>
+<li>An array of authorized roles <code>[Role1, Role2, ...]</code>: This means that only those authenticated users that
+have any of the roles listed there are authorized to execute the command</li>
+</ul>
+
+<blockquote>
+<p>This is an example of a definition of two roles:</p>
+</blockquote>
+<pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Role</span><span class="p">({</span>
+  <span class="na">allowSelfSignUp</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">Admin</span> <span class="p">{}</span>
+
+<span class="p">@</span><span class="nd">Role</span><span class="p">({</span>
+  <span class="na">allowSelfSignUp</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kr">class</span> <span class="nx">User</span> <span class="p">{}</span>
+</code></pre>
+<p>By default, a Booster application has no roles defined, so the only allowed value you can use in the <code>authorize</code> policy is <code>&#39;all&#39;</code> (good for public APIs).
+If you want to add user authorization, you first need to create the roles that are suitable for your application.
+Roles are classes annotated with the <code>@Role</code> decorator, where you can specify some attributes.</p>
+
+<p>Here, we have defined the <code>Admin</code> and <code>User</code> roles. The former contains the following attribute <code>allowSelfSignUp: false</code>,
+which means that when users sign-up, they can&#39;t specify the role <code>Admin</code> as one of its roles.
+The latter has this attribute set to <code>true</code>, which means that any user can self-assign the role <code>User</code> when signing up.</p>
+
+<p>If your Booster application has roles defined, an authentication API will be provisioned. It will allow your users to gain
+access to your resources.</p>
+
+<p>This API consists of three endpoints (<a href="#booster-cloud-framework-rest-api">see the API documentation</a>):</p>
+
+<ul>
+<li><code>/auth/sign-up</code>: Users can use this endpoint to register in your application and get some roles assigned to them.
+Only roles with the attribute <code>allowSelfSignUp: true</code> can be specified upon sign-up. After calling this endpoint, the
+registration is not yet finished. Users need to confirm their emails by clicking in the link that will be sent to their
+inbox.</li>
+</ul>
+
+<p><img class="image" src="images/sign-up-verificaiton-email-5b526688.png" alt="Confirmation email" />
+<img class="image" src="images/sign-up-confirmed-08e631bb.png" alt="Email confirmed" /></p>
+
+<ul>
+<li><code>/auth/sign-in</code>: This endpoint creates a session for an already registered user, returning an access token that
+can be used to access role-protected resources (like Commands)</li>
+<li><code>/auth/sign-out</code>: Users can call this endpoint to finish the session.</li>
+</ul>
+
+<p>Once a user has an access token, it can be included in any request made to your Booster application as a
+Bearer Authorization header (<code>Authorization: Bearer</code>). It will be used to get the user information and
+authorize it to access protected resources.</p>
+<h1 id='deploying'>Deploying</h1>
+<p>One of the goals of Booster is to become provider agnostic so you can deploy your application to any serverless provider like AWS, Google Cloud, Azure, etc...</p>
+
+<p>So far, in the current version, only AWS is supported, but given the high level of abstraction, it will eventually support
+all cloud providers. (<strong>Contributions are welcome!</strong> 😜)</p>
+<h2 id='configure-your-provider-credentials'>Configure your provider credentials</h2>
+<blockquote>
+<p>Creating a plain text file manually named <code>~/.aws/credentials</code> with the following content will be enough:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>[default]
+aws_access_key_id = &lt;YOUR KEY ID&gt;
+aws_secret_access_key = &lt;YOUR ACCESS KEY&gt;
+region = eu-west-1
+</code></pre>
+<p>In the case of AWS, it is required that your <code>~/.aws/credentials</code> are properly setup, and a <code>region</code> attribute is specified. If you have the <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">AWS CLI installed</a>, you can create the config file by running the command <code>aws configure</code>, but that is completely optional, <strong>AWS CLI is not required to run booster</strong>. </p>
+
+<aside class="notice">
+It's recomended to use IAM user keys and avoiding your root access keys. If you need help obtaining a `KEY ID` and `ACCESS KEY`, <a href=https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey">check out the oficial AWS guides</a>
+</aside>
+<h2 id='deploy-your-project'>Deploy your project</h2>
+<p>To deploy your Booster project, run the following command:</p>
+
+<p><code>boost deploy</code></p>
+
+<p>It will take a while, but you should have your project deployed to your cloud provider.</p>
+
+<p>If you make changes to your code, you can run <code>boost deploy</code> again to update your project in the cloud.</p>
+<h2 id='deleting-your-cloud-stack'>Deleting your cloud stack</h2>
+<p>If you want to delete the Booster application that has been deployed to the cloud, you can run:</p>
+
+<p><code>boost nuke</code></p>
+
+<aside class="warning">
+<b>Note</b>: This will delete everything in your stack, including databases. This action is <b>not</b> reversible!
+</aside>
+<h1 id='booster-cloud-framework-rest-api'>Booster Cloud Framework REST API</h1>
+<p>The API for a Booster application is very simple and is fully defined by auth endpoints and the <a href="#commands-and-command-handlers-the-write-pipeline">commands</a>
+and <a href="#read-models-the-read-Pipeline">read models</a> names and structures.</p>
+
+<p>After a successful deployment you&#39;ll see an &quot;Outputs:&quot; section in your terminal with several values that you need to use
+when doing requests to the API. Those values are:</p>
+
+<ul>
+<li><code>baseURL</code>: This is the base URL for all your endpoints</li>
+<li><code>clientID</code>: Needed for authentication/authorization endpoints. This is only shown if there are roles defined in your app.</li>
+</ul>
+
+<p>Note that the <code>Content-Type</code> for all requests is <code>application/json</code>.</p>
+<h2 id='authentication-and-authorization-api'>Authentication and Authorization API</h2>
+<p>The following endpoints are provisioned if your application have at least one role defined. For more information about how
+to use roles to restrict the access to your application, see the section <a href="#authentication-and-authorization">Authentication and Authorization</a>.</p>
+<h3 id='sign-up'>Sign-up</h3>
+<p>Register a user in your application. After a successful invocation, an email will be sent to the user&#39;s inbox
+with a confirmation link. <strong>Users&#39;s won&#39;t be able to sign-in before they click in that link</strong>.</p>
+<h6 id='endpoint'>Endpoint</h6>
+<p><code>http request
+POST https://&lt;baseURL&gt;/auth/sign-up
+</code></p>
+<h6 id='request-body'>Request body</h6>
+<blockquote>
+<p>Sign-up response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"userAttributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"roles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"string"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>clientId</em></td>
+<td>The application client Id that you got as an output when the application was deployed.</td>
+</tr>
+<tr>
+<td><em>username</em></td>
+<td>The username of the user you want to register. It <strong>must be an email</strong>.</td>
+</tr>
+<tr>
+<td><em>password</em></td>
+<td>The password the user will use to later login into your application and get access tokens.</td>
+</tr>
+<tr>
+<td><em>userAttributes</em></td>
+<td>Here you can specify the attributes of your user. These are:</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li><em>roles</em>  An array of roles this user will have. You can only specify here roles with the property <code>allowSelfSignUp = true</code></li>
+</ul>
+<h6 id='response'>Response</h6>
+<p>An empty body</p>
+<h6 id='errors'>Errors</h6>
+<blockquote>
+<p>Sign-up error response body example: Not specifiying an email as username.</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"__type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"InvalidParameterException"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username should be an email."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>You will get a HTTP status code different from 2XX and a body with a message telling you the reason of the error.</p>
+<h3 id='sign-in'>Sign-in</h3>
+<p>Allows your users to get tokens to be able to make request to restricted endpoints.
+Remember that before a user can be signed in into your application, <strong>its email must be confirmed</strong></p>
+<h6 id='endpoint-2'>Endpoint</h6>
+<p><code>http request
+POST https://&lt;baseURL&gt;/auth/sign-in
+</code></p>
+<h6 id='request-body-2'>Request body</h6>
+<blockquote>
+<p>Sign-in request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>clientId</em></td>
+<td>The application client Id that you got as an output when the application was deployed.</td>
+</tr>
+<tr>
+<td><em>username</em></td>
+<td>The username of the user you want to sign in. It must be previously signed up</td>
+</tr>
+<tr>
+<td><em>password</em></td>
+<td>The password used to sign up the user.</td>
+</tr>
+</tbody></table>
+<h6 id='response-2'>Response</h6>
+<blockquote>
+<p>Sign-in response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"accessToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"expiresIn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"refreshToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tokenType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>accessToken</em></td>
+<td>The token you can use to access restricted resources. It must be sent in the <code>Authorization</code> header (prefixed with the <code>tokenType</code>)</td>
+</tr>
+<tr>
+<td><em>expiresIn</em></td>
+<td>The period of time, in seconds, after which the token will expire</td>
+</tr>
+<tr>
+<td><em>refreshToken</em></td>
+<td>The token you can use to get a new access token after it has expired.</td>
+</tr>
+<tr>
+<td><em>tokenType</em></td>
+<td>The type of token used. It is always <code>Bearer</code></td>
+</tr>
+</tbody></table>
+<h6 id='errors-2'>Errors</h6>
+<blockquote>
+<p>Sign-in error response body example: Login of an user that has not been confirmed</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"__type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UserNotConfirmedException"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not confirmed."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>You will get a HTTP status code different from 2XX and a body with a message telling you the reason of the error.</p>
+<h3 id='sign-out'>Sign-out</h3>
+<p>Finalizes the user session by cancelling their tokens.</p>
+<h6 id='endpoint-3'>Endpoint</h6>
+<p><code>http request
+POST https://&lt;baseURL&gt;/auth/sign-out
+</code></p>
+<h6 id='request-body-3'>Request body</h6>
+<blockquote>
+<p>Sign-out request body
+<code>json
+{
+    &quot;accessToken&quot;:&quot;string&quot;
+}
+</code></p>
+</blockquote>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>accessToken</em></td>
+<td>The access token you get in the sign-in call.</td>
+</tr>
+</tbody></table>
+<h6 id='response-3'>Response</h6>
+<p>An empty body</p>
+<h6 id='errors-3'>Errors</h6>
+<blockquote>
+<p>Sign-out error response body example: Invalid access token specified</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"__type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NotAuthorizedException"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid Access Token"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>You will get a HTTP status code different from 2XX and a body with a message telling you the reason of the error.</p>
+<h2 id='write-api-commands-submission'>Write API (commands submission)</h2>
+<ul>
+<li>[ ] TODO: Improve this documentation</li>
+</ul>
+
+<p><code>POST https://&lt;baseURL&gt;/commands</code></p>
+<h4 id='request-body-4'>Request body:</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"typeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ChangeCartItem"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"cartId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-10"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+</span></code></pre><h2 id='read-api-retrieve-a-read-model'>Read API (retrieve a read model)</h2>
+<ul>
+<li>[ ] Improve this documentation</li>
+</ul>
+<h3 id='get-a-list'>Get a list</h3>
+<p><code>GET https://&lt;baseURL&gt;/readmodels/&lt;read model class name&gt;</code></p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>Example:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p><code>GET https://&lt;baseURL&gt;/readmodels/CartReadModel</code></p>
+<h3 id='get-a-specific-read-model'>Get a specific read model</h3>
+<p><code>GET https://&lt;baseURL&gt;/readmodels/&lt;read model class name&gt;/&lt;read model ID&gt;</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<p>Example:</p>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
+<p><code>GET https://&lt;baseURL&gt;/readmodels/CartReadModel/42</code></p>
+<h1 id='frequently-asked-questions'>Frequently asked questions</h1>
+<p><strong>1.- When deploying my application in AWS for the first time, I got an error saying <em>&quot;StagingBucket <your app name>-toolkit-bucket already exists&quot;</em></strong></p>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>When you deploy a Booster application to AWS, an S3 bucket needs to be created to upload the application code. Booster names that bucket
+using your application name as a prefix. 
+In AWS, bucket names must be unique <em>globally</em>, so if there is another bucket in the world with exactly the same name as
+the one generated for your application, you will get this error.  </p>
 
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
-</tr>
-</tbody></table>
+<p>The solution is to change your application name in the configuration file so that the bucket name is unique. </p>
 
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
-          </div>
       </div>
     </div>
   </body>
