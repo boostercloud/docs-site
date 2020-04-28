@@ -1,4 +1,5 @@
-# Getting Started
+# Installing Booster
+
 > Go to your new project folder (`cd <name of your project>`) to see the project structure. You'll see something like this:
 
 ```text
