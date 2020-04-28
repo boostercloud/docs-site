@@ -9,7 +9,7 @@ toc_footers:
 
 includes:
   - 00-overview
-  - 01-getting-started
+  - 01-installing-booster
   - 02-architecture
   - 03-commands
   - 04-events
