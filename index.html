@@ -246,7 +246,21 @@
               </ul>
           </li>
           <li>
-            <a href="#getting-started" class="toc-h1 toc-link" data-title="Getting Started">Getting Started</a>
+            <a href="#installing-booster" class="toc-h1 toc-link" data-title="Installing Booster">Installing Booster</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#supported-operating-systems" class="toc-h2 toc-link" data-title="Supported operating systems">Supported operating systems</a>
+                  </li>
+                  <li>
+                    <a href="#install-node-js" class="toc-h2 toc-link" data-title="Install Node.js">Install Node.js</a>
+                  </li>
+                  <li>
+                    <a href="#set-up-your-aws-account" class="toc-h2 toc-link" data-title="Set up your AWS account">Set up your AWS account</a>
+                  </li>
+                  <li>
+                    <a href="#installing-the-booster-cli" class="toc-h2 toc-link" data-title="Installing the Booster CLI">Installing the Booster CLI</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#architecture-and-core-concepts" class="toc-h1 toc-link" data-title="Architecture and core concepts">Architecture and core concepts</a>
@@ -491,38 +505,171 @@ configuration beforehand.</p>
 <p>Thrilled already? Jump to <a href="#installing-booster">the installation steps</a>, read
 <a href="#your-first-booster-app">how to write your first Booster app</a>, and
 join the community in the <a href="https://spectrum.chat/boostercloud">Spectrum chat</a>.</p>
-<h1 id='getting-started'>Getting Started</h1>
-<blockquote>
-<p>Go to your new project folder (<code>cd &lt;name of your project&gt;</code>) to see the project structure. You&#39;ll see something like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>$ tree
-.
-|____package.json
-|____tsconfig.json
-|____src
-| |____migrations
-| |____config
-| | |____config.ts
-| |____read-models
-| |____commands
-| |____events
-| |____entities
+<h1 id='installing-booster'>Installing Booster</h1><h2 id='supported-operating-systems'>Supported operating systems</h2>
+<p>You can develop with Booster using any of the following operating systems:</p>
+
+<ul>
+<li>Linux</li>
+<li>MacOS</li>
+<li>Windows (Native and WSL)</li>
+</ul>
+
+<p>Booster hasn&#39;t been tested under other platforms like BSD, if you want to
+develop under those, proceed at your own risk!</p>
+<h2 id='install-node-js'>Install Node.js</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># Ubuntu</span>
+<span class="nv">$ </span>curl <span class="nt">-sL</span> https://deb.nodesource.com/setup_14.x | <span class="nb">sudo</span> <span class="nt">-E</span> bash -
+<span class="nv">$ </span><span class="nb">sudo </span>apt <span class="nb">install </span>nodejs
+
+<span class="c"># MacOS</span>
+<span class="nv">$ </span>brew <span class="nb">install </span>node
+
+<span class="c"># Windows</span>
+<span class="o">&gt;</span> choco <span class="nb">install </span>nodejs
 </code></pre></div>
-<p>Let&#39;s install the Booster CLI and bootstrap your first project:</p>
+<p>Booster is a TypeScript framework that benefits from the Node.js ecosystem, it
+has been tested under versions newer than <code>v12</code>, so make sure that you install one
+accordingly.</p>
 
-<ol>
-<li>Install the Booster CLI tool if you haven’t yet:</li>
-</ol>
+<p>If you don&#39;t have Node.js installed, you can download an installer <a href="https://nodejs.org/en/">from it&#39;s website</a>, or you can install it using your system&#39;s
+package manager.</p>
 
-<p><code>npm install -g @boostercloud/cli</code></p>
+<ul>
+<li><strong>Ubuntu</strong> - using <a href="https://wiki.debian.org/Apt"><code>apt</code></a></li>
+<li><strong>MacOS</strong> - using <a href="https://brew.sh/"><code>brew</code></a></li>
+<li><strong>Windows</strong> - using <a href="https://chocolatey.org/"><code>chocolatey</code></a></li>
+</ul>
 
-<ol>
-<li>Create a new Booster project</li>
-</ol>
+<p>If for some reason you are working with other projects that require a different
+Node.js version, we recommend that you use a version manager like:</p>
 
-<p><code>boost new:project &lt;name of your project&gt;</code></p>
+<ul>
+<li><a href="https://github.com/nvm-sh/nvm"><code>nvm</code></a> - Works with MacOS, Linux and WSL</li>
+<li><a href="https://github.com/coreybutler/nvm-windows"><code>nvm-windows</code></a> - Works with native Windows</li>
+</ul>
 
-<p>Project structure or code generators are not enforced, but they&#39;re recommended to build a community-shared set of conventions.</p>
+<blockquote>
+<p>Verify your Node.js and <code>npm</code> versions</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>node <span class="nt">-v</span>
+v13.12.0
+
+<span class="nv">$ </span>npm <span class="nt">-v</span>
+6.14.4
+</code></pre></div>
+<p>After you&#39;ve installed Node.js, you can verify that it was installed properly by
+checking so from your terminal.</p>
+
+<p>Make sure that Node.js is newer than <code>v12</code> and <code>npm</code> (comes installed with Node.js) is newer than <code>6</code>.</p>
+<h2 id='set-up-your-aws-account'>Set up your AWS account</h2>
+<p>Booster is a cloud-native framework, meaning that your application will be deployed
+to the cloud, using different cloud services. Right now, it only supports AWS, but
+given Booster&#39;s abstractions, a provider package can be easily created to support
+other cloud providers.</p>
+
+<p>To follow the documentation locally and get a grip of Booster, you don&#39;t need a
+cloud provider, but to deploy, and test your application, you will need it.</p>
+
+<aside class="warning">
+<b>Note:</b> Booster is and always will be free, but the resources you use in AWS
+are not.
+Most of them are pay-per-use, which means that your system is absolutely free as
+long as no one is using it, <b>but some aren't</b>.
+</br>
+</br>
+Right now the cost of an idle Booster application is approximately <b>$12 per month</b>
+or the equivalent to the fraction of time you have it running
+(e.g. <b>$4 per week</b>). This is mainly due to
+<a href="https://aws.amazon.com/kinesis/">AWS Kinesis</a>.
+The Booster contributors are working hard to remove this resource in the best way
+possible, so you can enjoy developing production-ready, cloud-native apps without
+paying for idling.
+</aside>
+
+<p>Now it is a good time to create that AWS account, you can do so from
+<a href="https://portal.aws.amazon.com/billing/signup">the AWS console registration</a>.</p>
+
+<p>Once you&#39;ve registered yourself, you will need to configure your system to use your
+account. To do so, login into the <a href="https://console.aws.amazon.com">AWS Console</a>, and
+click on your account name on the top-right corner.</p>
+
+<p><img src="images/aws-account-menu-c0ee1696.png" alt="aws account menu location" /></p>
+
+<p>A menu will open, click on <strong>My security credentials</strong> and it will take you to the
+Identity and Access Management panel. Once there, create an access key:</p>
+
+<p><img src="images/aws-create-access-key-51b14c56.png" alt="create access key button location" /></p>
+
+<p>A pop-up will appear, <strong>don&#39;t close it!</strong>.</p>
+<div class="highlight"><pre class="highlight ini tab-ini"><code><span class="nn">[default]</span>
+<span class="py">aws_access_key_id</span> <span class="p">=</span> <span class="s">&lt;YOUR ACCESS KEY ID&gt;</span>
+<span class="py">aws_secret_access_key</span> <span class="p">=</span> <span class="s">&lt;YOUR SECRET ACCESS KEY&gt;</span>
+</code></pre></div>
+<p>Now create a folder called <code>.aws</code> under your home folder, and a file called
+<code>credentials</code> inside of it.</p>
+
+<p>Paste the template you see on the right, and fill with the keys that appeared
+in the popup of the website. Save the file. You are ready to go!</p>
+<h2 id='installing-the-booster-cli'>Installing the Booster CLI</h2>
+<p>Booster comes with a command line tool that generates boilerplate code, and also,
+deploys, and deletes your application resources in the cloud.</p>
+<h3 id='installing-using-npm'>Installing using <code>npm</code></h3><div class="highlight"><pre class="highlight shell tab-shell"><code>npm <span class="nb">install</span> <span class="nt">--global</span> @boostercloud/cli
+</code></pre></div>
+<p>All stable versions are published to <a href="https://npmjs.com"><code>npm</code></a>, to install the
+Booster CLI, use the command on the right.</p>
+
+<p>These versions are the recommended ones, as they are well documented, and the
+changes are stated in the release notes.</p>
+<h3 id='installing-the-development-version'>Installing the development version</h3>
+<p>If you like to live on the bleeding edge, you might want to install the development
+version, but beware, <strong>here might be bugs and unstable features!</strong></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># Inside a terminal</span>
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">-g</span> verdaccio
+
+<span class="c"># Open a new terminal, and run this command</span>
+<span class="nv">$ </span>verdaccio
+
+<span class="c"># Go back to the first terminal</span>
+<span class="nv">$ </span>npm adduser <span class="nt">--registry</span> http://localhost:4873
+<span class="nv">$ </span>git clone git@github.com:boostercloud/booster.git
+<span class="nv">$ </span><span class="nb">cd </span>booster
+<span class="nv">$ </span>lerna publish <span class="nt">--registry</span> http://localhost:4873 <span class="nt">--no-git-tag-version</span> <span class="nt">--canary</span>
+<span class="c"># Specify some version that you will remember here, i.e. 0.3.0-my-alpha</span>
+<span class="nv">$ </span>git stash <span class="nt">-u</span>
+<span class="nv">$ </span>npm <span class="nb">install</span> <span class="nt">--registry</span> http://localhost:4873 @boostercloud/cli
+</code></pre></div>
+<p>Make sure that you have <a href="https://git-scm.com/">Git</a> installed. You can verify this
+by running <code>git help</code>.</p>
+
+<p>Follow the steps on the right, they will:</p>
+
+<ul>
+<li>Install <a href="https://verdaccio.org/"><code>verdaccio</code></a>, an <code>npm</code> local proxy</li>
+<li>Run <code>verdaccio</code>, and register yourself locally</li>
+<li>Get the Booster source code</li>
+<li>Install <code>lerna</code>, the tool that manages all the Booster packages</li>
+<li>Publish the Booster version locally</li>
+<li>Install the Booster development version</li>
+</ul>
+
+<p>If everything went correctly, you should have the Booster CLI installed.</p>
+
+<aside class="notice">
+Remember to change the dependency versions in your project's <code>package.json</code> to the version you've specified by following the steps.
+</br>
+</br>
+Also, when installing the dependencies, you have to specify the registry like so:
+</br>
+<code>
+$ npm install --registry http://localhost:4873 @boostercloud/cli
+</code>
+</aside>
+<h3 id='verify-that-you-have-booster-installed'>Verify that you have Booster installed</h3>
+<p>To verify that the Booster installation was successful, enter the following
+command into your terminal: <code>boost version</code></p>
+
+<p>If everything went well, you should get something like <code>@boostercloud/cli/0.3.0</code></p>
+
+<p>You are now ready to <a href="#your-first-booster-app">write your first Booster app</a>!</p>
 <h1 id='architecture-and-core-concepts'>Architecture and core concepts</h1>
 <p>Booster’s architecture is heavily inspired by the <a href="https://www.martinfowler.com/bliki/CQRS.html">CQRS</a> and <a href="https://martinfowler.com/eaaDev/EventSourcing.html">Event Sourcing</a> patterns.
 These patterns have proven to work well for highly-distributed high available systems, being a tool to make resilient
