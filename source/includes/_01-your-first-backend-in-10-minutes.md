@@ -201,7 +201,7 @@ To do so, execute the following command from the root of your project, in a term
 
 `boost nuke -e production`
 
-It will ask you to verify the project name, it will be the same one that it was written when we created the project. If you don't remember the name, go to `<project-root>/package.json` and copy the `name`. 
+It will ask you to verify the project name, it will be the same one that it was written when we created the project. If you don't remember the name, go to `config/production.ts` and copy the `name` field. 
 
 ## 9. Further improvements
 The are many other options for your serverless backend built with Booster Framework:
