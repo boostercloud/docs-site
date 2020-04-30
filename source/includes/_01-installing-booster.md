@@ -172,7 +172,7 @@ Remember to change the dependency versions in your project's <code>package.json<
 Also, when installing the dependencies, you have to specify the registry like so:
 </br>
 <code>
-$ npm install --registry http://localhost:4873 @boostercloud/cli
+$ npm install --registry http://localhost:4873
 </code>
 </aside>
 
