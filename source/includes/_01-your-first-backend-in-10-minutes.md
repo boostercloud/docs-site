@@ -36,7 +36,7 @@ with your selected project name.
 
 `boost new:project <project-name>`
 
-You will need to answer a few questions in order to configure the project. One of these steps will require that a provider is selected, we recommend selecting AWS. 
+You will need to answer a few questions in order to configure the project. The last step asks you about a _provider package_, for this tutorial, select AWS.
 
 Once the project has been successfully created, you will need to move to the new directory. Ideally, you would also open the project in your most preferred IDE, e.g. Visual Studio Code.
 
@@ -210,4 +210,3 @@ If you reached this point following all the steps you have created a serverless 
 We hope you have enjoyed it and we would like to remind you that Booster Framework is an open-source project and your contributions to make it better will be much appreciated.
 
 Thank you very :D
-
