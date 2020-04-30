@@ -43,7 +43,9 @@ Once the project has been successfully created, you will need to move to the new
 Now open the project in your most preferred IDE, e.g. [Visual Studio Code](https://code.visualstudio.com/).
 
 ## 2. First command
-We will now define our first command, which will allow us to create Posts.
+We will now define our first command, which will allow us to create posts in our blog.
+
+In a terminal, from the root of your project, type:
 
 `boost new:command CreatePost --fields postId:UUID title:string content:string author:string`
 
