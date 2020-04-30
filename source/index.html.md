@@ -10,6 +10,7 @@ toc_footers:
 includes:
   - 00-overview
   - 01-installing-booster
+  - 01-your-first-backend-in-10-minutes
   - 02-architecture
   - 03-commands
   - 04-events

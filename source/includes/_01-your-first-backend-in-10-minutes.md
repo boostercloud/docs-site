@@ -3,6 +3,7 @@
 In this section, we will go through all the necessary steps to have the backend for a blog application up and running in a few minutes.
 
 The steps to follow will be:
+
 - [Create project](#1-create-the-project)
 - [First command](#2-first-command)
 - [First event](#3-first-event)
@@ -15,28 +16,30 @@ The steps to follow will be:
     - [Retrieving specific post](#73-retrieving-specific-post)
 - [Removing stack](#8-removing-stack)
 - [Further improvements](#9-further-improvements)
-- [Conclusion](#10-conclusion)
 
 ## 1. Create project
+> Create project
 
-```text   <- remove the spaces before the backticks
-$ tree -L2
-.
-|-src
-  |- commands
-  |- events
-  ...
+```bash
+boost new:project <project-name>
 ```
-
 First of all, we need to create a base Booster project. To do so, we will use the Booster CLI, which
 can be invoked by typing `boost` inside of a terminal.
 
-Create your new project by typing the following command into your console. It will generate a folder
+```text
+|- <your-project-name>
+  |- src
+    |- commands
+    |- common
+    |- entities
+    |- events
+    |- read-models
+    ...
+```
+It will generate a folder
 with your selected project name.
 
-`boost new:project <project-name>`
-
-You will need to answer a few questions in order to configure the project. The last step asks you about a _provider package_, for this tutorial, select AWS.
+You will need to answer a few questions in order to configure the project. The last step asks you about a _provider package_, for this tutorial, select *AWS*.
 
 Once the project has been successfully created, you will need to move to the new directory, you can do so by typing `cd <your project name>` in a terminal. 
 
@@ -45,11 +48,19 @@ Now open the project in your most preferred IDE, e.g. [Visual Studio Code](https
 ## 2. First command
 We will now define our first command, which will allow us to create posts in our blog.
 
+> New command
+
+```bash
+boost new:command CreatePost --fields postId:UUID title:string content:string author:string
+```
 In a terminal, from the root of your project, type:
 
-`boost new:command CreatePost --fields postId:UUID title:string content:string author:string`
-
-These commands creates most of the code for us, which can be seen in `<project-root>/src/commands/CreatePost.ts`
+```text
+|- <your-project-name>
+  |- src
+    |- commands/CreatePost.ts
+```
+These commands creates most of the code for us, which can be seen in
 
 However, we still need to define a couple of things in this file:
 - Who can trigger our command
@@ -60,34 +71,51 @@ For now, we will set the `authorize` configuration to `all`, so anyone can trigg
 Additionally, the current `CreatePost` command will not trigger any event, so we will have to come back later to set the event that this command will fire up.
 
 ## 3. First event
+> New event
+
+```bash
+boost new:event PostCreated --fields postId:UUID title:string content:string author:string
+```
 In this type of backend architectures, events can be triggered by commands or by other events. We will create an event that defines a `Post` creation. 
 
-`boost new:event PostCreated --fields postId:UUID title:string content:string author:string`
+```text
+|- <your-project-name>
+  |- src
+    |- events/PostCreated.ts
+```
+You will realize that a new file has been created:
 
-You will realize that a new file has been created, `<project-root>/src/events/PostCreated.ts`
-
-There is one small thing that we have to define in the above file, which is the returned value for `EntityID()`. We will set the post `UUID`. It should look like this:
 ```typescript
 public entityID(): UUID {
-    return this.postId
-  }
+  return this.postId
+}
 ```
+There is one small thing that we have to define in the above file, which is the returned value for `EntityID()`. We will set the post `UUID`. It should look like this:
 
-Now we can go back to the command we created before and add our new event `PostCreated` to the register of events. Your `handle` should look like this:
 ```typescript
 public handle(register: Register): void {
     register.events(new PostCreated(this.postId, this.title, this.content, this.author))
   }
 ```
+Now we can go back to the command we created before and add our new event `PostCreated` to the register of events. Your `handle` should look like this:
 
 ## 4. First entity
+> New entity
+
+```bash
+boost new:entity Post --fields title:string content:string author:string --reduces PostCreated
+```
+
 We have now created a command and an event, however, we do not have any data representation of a `Post`. As a result, we will create an `entity`.
 
-`boost new:entity Post --fields title:string content:string author:string --reduces PostCreated`
+```text
+|- <your-project-name>
+  |- src
+    |- entities/Post.ts
+```
+Another file has been created in your project, you will need to add the implementation of its projection:
 
-Another file has been created in your project, `<project-root>/src/entities/Post.ts`
-
-The `Post` entity has been created but no projection has been defined, so we will do so:
+> Projection
 
 ```typescript
 @Reduces(PostCreated)
@@ -96,12 +124,15 @@ return new Post(event.postId, event.title, event.content, event.author)
 }
 ```
 
-In the future, we may want to project events for this `Post` entity that require retrieving current `Post` values. In that case we would need to make use of `currentPost`. 
+In the future, we may want to *project* events for this `Post` entity that require retrieving current `Post` values. In that case we would need to make use of `currentPost` argument. 
 
 ## 5. First read model
-Almost everything is set-up. We just need to provide a way to view the `Posts` of our blog. For that, we will create a `read model`.
+> New read model
 
-`boost new:read-model PostReadModel --fields title:string content:string author:string --projects Post`
+```bash
+boost new:read-model PostReadModel --fields title:string content:string author:string --projects Post
+```
+Almost everything is set-up. We just need to provide a way to view the `Posts` of our blog. For that, we will create a `read model`.
 
 Once the read-model code has been generated, it will be placed in `<project-root>/src/read-models/PostReadModel.ts`
 
@@ -109,14 +140,12 @@ Similar to the `CreatePost` command we defined at the beginning, we will also ne
 - Who can read the `Posts`
 - How the data is manipulated before returning it
 
-To make it easy, we will allow anyone to read it:
 ```typescript
 @ReadModel({
   authorize: 'all'// Specify authorized roles here. Use 'all' to authorize anyone
 })
 ```
-
-and we will project the whole entity
+To make it easy, we will allow anyone to read it:
 
 ```typescript
 @Projects(Post, "id")
@@ -124,19 +153,24 @@ and we will project the whole entity
     return new PostReadModel(entity.id, entity.title, entity.content, entity.author)
   }
 ```
+and we will project the whole entity
 
 ## 6. Deployment
+```bash
+boost deploy -e production
+```
 Everything we need for a basic project is set. It is time to deploy it:
-
-`boost deploy -e production`
 
 It will take a couple of minutes to deploy all the resources.
 
-When the the serverless backend is successfully deployed you will see information about your stack endpoints. For this basic project we will only need to pick the REST API endpoint, reflected in the output as `backend-application-stack.baseRESTURL`, e.g.:
+> GraphQL endpoint
 
-`https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/production/`
+```text
+https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/production/graphql
+```
+When the the serverless backend is successfully deployed you will see information about your stack endpoints. For this basic project we will only need to pick the REST API endpoint, reflected in the output as `backend-application-stack.baseRESTURL`, and append `/graphql` at the end, e.g.:
 
-We will use this endpoint to test our backend.
+We will use this GraphQL API endpoint to test our backend.
 
 ## 7. Testing
 Let's get started testing the project. We will perform two actions:
@@ -144,39 +178,43 @@ Let's get started testing the project. We will perform two actions:
 - Retrieve all posts
 - Retrieve a specific post
 
-To perform the HTTP requests, you might want to use something like `Postman`, although `curl` would also work.
+To perform the GraphQL queries, you might want to use something like [Postwoman](https://postwoman.io/graphql), although `curl` would also work.
 
 ### 7.1 Creating posts
-We will perform a two `POST` request to the following commands URL:
+We will perform two GraphQL `mutation` queries in order to add information:
 
-`https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/production/commands`
+> The first GraphQL mutation:
 
-The first request:
-
-```json
-{
-	"typeName": "CreatePost",
-	"version": 1,
-	"value": {
-    	"postId": "95ddb544-4a60-439f-a0e4-c57e806f2f6e",
-    	"title": "This is my first post",
-    	"content": "I am so excited to write my first post",
-		"author": "Some developer"
-  }
+```graphql
+mutation { 
+    CreatePost(input: {
+        postId: "95ddb544-4a60-439f-a0e4-c57e806f2f6e",
+        title: "This is my first post",
+        content: "I am so excited to write my first post",
+        author: "Some developer"
+    })
 }
 ```
 
-The second request:
+> The second GraphQL mutation:
+
+```graphql
+mutation { 
+    CreatePost(input: {
+        postId: "05670e55-fd31-490e-b585-3a0096db0412",
+        title: "This is my second post",
+        content: "I am so excited to write my second post",
+        author: "The other developer"
+    })
+}
+```
+
+> The expected response for each of the requests above should be:
 
 ```json
 {
-	"typeName": "CreatePost",
-	"version": 1,
-	"value": {
-    	"postId": "05670e55-fd31-490e-b585-3a0096db0412",
-    	"title": "This is my second post",
-    	"content": "I am so excited to write my second post",
-		"author": "Some developer"
+  "data": {
+    "CreatePost": true
   }
 }
 ```
@@ -184,26 +222,85 @@ The second request:
 We should now have two `Posts` in our backend, no authorization header is required since we have allowed `all` access to our commands and read models.
 
 ### 7.2 Retrieving all posts
-In order to retrieve the information we just sent, lets perform a `GET` request that will be hitting our read model `PostReadModel`:
+> GraphQL query, all posts
 
-`https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/production/readmodels/PostReadModel`
+```graphql
+query {
+  PostReadModels {
+      id
+      title
+      content
+      author
+  }
+}
+```
+In order to retrieve the information we just sent, lets perform a GraphQL `query` that will be hitting our read model `PostReadModel`:
+
+```json
+{
+  "data": {
+    "PostReadModels": [
+      {
+        "id": "05670e55-fd31-490e-b585-3a0096db0412",
+        "title": "This is my second post",
+        "content": "I am so excited to write my second post",
+        "author": "The other developer"
+      },
+      {
+        "id": "95ddb544-4a60-439f-a0e4-c57e806f2f6e",
+        "title": "This is my first post",
+        "content": "I am so excited to write my first post",
+        "author": "Some developer"
+      }
+    ]
+  }
+}
+```
+You should expect a response similar to this:
+
 
 ### 7.3 Retrieving specific post
-It is also possible to retrieve specific a `Post` by adding the `postId` to the URL, e.g.:
+> GraphQL query, specific posts
 
-`https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/production/readmodels/PostReadModel/95ddb544-4a60-439f-a0e4-c57e806f2f6e`
+```graphql
+query {
+  PostReadModel(id: "95ddb544-4a60-439f-a0e4-c57e806f2f6e") {
+      id
+      title
+      content
+      author
+  }
+}
+```
+It is also possible to retrieve specific a `Post` by adding the `id` as input, e.g.:
+
+You should expect a response similar to this:
+```json
+{
+  "data": {
+    "PostReadModel": {
+      "id": "95ddb544-4a60-439f-a0e4-c57e806f2f6e",
+      "title": "This is my first post",
+      "content": "I am so excited to write my first post",
+      "author": "Some developer"
+    }
+  }
+}
+```
 
 ## 8. Removing stack
-
 Now, let's undeploy our backend. **Remember that it costs you money to have it on idle**.
 
-To do so, execute the following command from the root of your project, in a terminal.
+> Undeploy stack
 
-`boost nuke -e production`
+```bash
+boost nuke -e production
+```
+To do so, execute the following command from the root of your project, in a terminal:
 
 It will ask you to verify the project name, it will be the same one that it was written when we created the project. If you don't remember the name, go to `config/production.ts` and copy the `name` field. 
 
-## 9. Further improvements
+## 9. More functionalities
 
 The are many other options for your serverless backend built with Booster Framework:
 
@@ -216,9 +313,6 @@ The are many other options for your serverless backend built with Booster Framew
 
 But we won't be covering them in this section. Keep reading if you want to know more!
 
-## 10. Conclusion
-If you reached this point following all the steps you have created a serverless backend in less than 10 minutes. This framework intends to simplify the tedious process of building a backend from scratch. Furthermore, it reduces the infrastructure management work by automatically provisioning anything your project needs. It is not just magic, it is Booster Framework.
-
-We hope you have enjoyed it and we would like to remind you that Booster Framework is an open-source project and your contributions to make it better will be much appreciated.
-
-Thank you very :D
+<aside class="success">
+Congratulations! you've built a serverless backend in less than 10 minutes. We hope you have enjoyed discovering the magic of Booster Framework, please keep reading if you want to know more about it.
+</aside>
