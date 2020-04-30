@@ -1,6 +1,6 @@
 # Building your first serverless backend in 10 minutes 
 
-Building your serverless application backend have never been this easy. In this section, we will go through all the necessary steps to have your backend up and running in a few minutes.
+In this section, we will go through all the necessary steps to have your backend up and running in a few minutes.
 
 If you follow the steps below, you will be able to create the application backend for a blog.
 
@@ -198,7 +198,6 @@ If you reached this point following all the steps you have created a serverless 
 We hope you have enjoyed it and we would like to remind you that Booster Framework is an open-source project and your contributions to make it better will be much appreciated.
 
 Thank you very :D
-
 
 
 
