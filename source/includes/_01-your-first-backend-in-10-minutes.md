@@ -194,7 +194,10 @@ It is also possible to retrieve specific a `Post` by adding the `postId` to the 
 `https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/production/readmodels/PostReadModel/95ddb544-4a60-439f-a0e4-c57e806f2f6e`
 
 ## 8. Removing stack
-If you want to un-deploy your backend, just execute the following command:
+
+Now, let's undeploy our backend. **Remember that it costs you money to have it on idle**.
+
+To do so, execute the following command from the root of your project, in a terminal.
 
 `boost nuke -e production`
 
