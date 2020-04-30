@@ -19,14 +19,14 @@ The steps to follow will be:
 
 ## 1. Create project
 
-` ``text   <- remove the spaces before the backticks
+```text   <- remove the spaces before the backticks
 $ tree -L2
 .
 |-src
   |- commands
   |- events
   ...
-` ``
+```
 
 First of all, we need to create a base Booster project. To do so, we will use the Booster CLI, which
 can be invoked by typing `boost` inside of a terminal.
