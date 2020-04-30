@@ -18,7 +18,21 @@ The steps to follow will be:
 - [Conclusion](#10-conclusion)
 
 ## 1. Create project
-First of all, we need to create a base Booster project
+
+` ``text   <- remove the spaces before the backticks
+$ tree -L2
+.
+|-src
+  |- commands
+  |- events
+  ...
+` ``
+
+First of all, we need to create a base Booster project. To do so, we will use the Booster CLI, which
+can be invoked by typing `boost` inside of a terminal.
+
+Create your new project by typing the following command into your console. It will generate a folder
+with your selected project name.
 
 `boost new:project <project-name>`
 
@@ -196,5 +210,4 @@ If you reached this point following all the steps you have created a serverless 
 We hope you have enjoyed it and we would like to remind you that Booster Framework is an open-source project and your contributions to make it better will be much appreciated.
 
 Thank you very :D
-
 
