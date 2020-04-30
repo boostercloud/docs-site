@@ -1,8 +1,6 @@
 # Your first Booster app in 10 minutes 
 
-In this section, we will go through all the necessary steps to have your backend up and running in a few minutes.
-
-If you follow the steps below, you will be able to create the application backend for a blog.
+In this section, we will go through all the necessary steps to have the backend for a blog application up and running in a few minutes.
 
 The steps to follow will be:
 - [Create project](#1-create-the-project)
