@@ -204,12 +204,17 @@ To do so, execute the following command from the root of your project, in a term
 It will ask you to verify the project name, it will be the same one that it was written when we created the project. If you don't remember the name, go to `config/production.ts` and copy the `name` field. 
 
 ## 9. Further improvements
+
 The are many other options for your serverless backend built with Booster Framework:
-- GraphQL API available with subscriptions
+
+- GraphQL subscriptions
+- REST API
 - Securing requests depending on user roles
 - Events that trigger more events
 - Reading entity snapshots in handlers to apply domain-driven decisions
 - and much more...
+
+But we won't be covering them in this section. Keep reading if you want to know more!
 
 ## 10. Conclusion
 If you reached this point following all the steps you have created a serverless backend in less than 10 minutes. This framework intends to simplify the tedious process of building a backend from scratch. Furthermore, it reduces the infrastructure management work by automatically provisioning anything your project needs. It is not just magic, it is Booster Framework.
