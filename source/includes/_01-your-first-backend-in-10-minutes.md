@@ -38,7 +38,9 @@ with your selected project name.
 
 You will need to answer a few questions in order to configure the project. The last step asks you about a _provider package_, for this tutorial, select AWS.
 
-Once the project has been successfully created, you will need to move to the new directory. Ideally, you would also open the project in your most preferred IDE, e.g. Visual Studio Code.
+Once the project has been successfully created, you will need to move to the new directory, you can do so by typing `cd <your project name>` in a terminal. 
+
+Now open the project in your most preferred IDE, e.g. [Visual Studio Code](https://code.visualstudio.com/).
 
 ## 2. First command
 We will now define our first command, which will allow us to create Posts.
