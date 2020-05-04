@@ -63,6 +63,7 @@ In a terminal, from the root of your project, type:
 These commands creates most of the code for us, which can be seen in
 
 However, we still need to define a couple of things in this file:
+
 - Who can trigger our command
 - What events should be triggered
 
