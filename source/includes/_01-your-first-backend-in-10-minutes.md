@@ -66,7 +66,7 @@ However, we still need to define a couple of things in this file:
 - Who can trigger our command
 - What events should be triggered
 
-For now, we will set the `authorize` configuration to `all`, so anyone can trigger it.
+For the first part, we will let anyone to trigger it. To do so, configure the `authorize` command option to `"all"` (yes, between quotes, it is a string). If you cannot find it, it is right after the `@Command` decorator.
 
 Additionally, the current `CreatePost` command will not trigger any event, so we will have to come back later to set the event that this command will fire up. This is done in the `handle` method of the command class. Leave it as it is for now.
 
