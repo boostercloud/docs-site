@@ -70,6 +70,8 @@ For now, we will set the `authorize` configuration to `all`, so anyone can trigg
 
 Additionally, the current `CreatePost` command will not trigger any event, so we will have to come back later to set the event that this command will fire up.
 
+If everything went well, you should have now the code you can see on the right.
+
 ## 3. First event
 > New event
 
