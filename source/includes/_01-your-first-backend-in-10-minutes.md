@@ -126,6 +126,8 @@ return new Post(event.postId, event.title, event.content, event.author)
 
 In the future, we may want to *project* events for this `Post` entity that require retrieving current `Post` values. In that case we would need to make use of `currentPost` argument. 
 
+The full code for the entity can be seen on the right.
+
 ## 5. First read model
 > New read model
 
