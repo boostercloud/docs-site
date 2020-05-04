@@ -173,7 +173,9 @@ When the the serverless backend is successfully deployed you will see informatio
 We will use this GraphQL API endpoint to test our backend.
 
 ## 7. Testing
-Let's get started testing the project. We will perform two actions:
+
+Let's get started testing the project. We will perform three actions:
+
 - Add a couple of posts
 - Retrieve all posts
 - Retrieve a specific post
