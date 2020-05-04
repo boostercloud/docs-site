@@ -134,9 +134,12 @@ boost new:read-model PostReadModel --fields title:string content:string author:s
 ```
 Almost everything is set-up. We just need to provide a way to view the `Posts` of our blog. For that, we will create a `read model`.
 
-Once the read-model code has been generated, it will be placed in `<project-root>/src/read-models/PostReadModel.ts`
-
-Similar to the `CreatePost` command we defined at the beginning, we will also need to define a few things:
+```text
+|- <your-project-name>
+  |- src
+    |- read-models/PostReadModel.ts
+```
+Once the read-model code has been generated, we will also need to define a few things:
 
 - Who can read the `Posts`
 - How the data is manipulated before returning it
