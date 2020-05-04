@@ -137,6 +137,7 @@ Almost everything is set-up. We just need to provide a way to view the `Posts` o
 Once the read-model code has been generated, it will be placed in `<project-root>/src/read-models/PostReadModel.ts`
 
 Similar to the `CreatePost` command we defined at the beginning, we will also need to define a few things:
+
 - Who can read the `Posts`
 - How the data is manipulated before returning it
 
