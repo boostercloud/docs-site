@@ -71,6 +71,24 @@ For the first part, we will let anyone to trigger it. To do so, configure the `a
 
 Additionally, the current `CreatePost` command will not trigger any event, so we will have to come back later to set the event that this command will fire up. This is done in the `handle` method of the command class. Leave it as it is for now.
 
+```typescript
+@Command({
+  authorize: 'all'// Specify authorized roles here. Use 'all' to authorize anyone
+})
+export class CreatePost {
+  public constructor(
+    readonly postId: UUID,
+    readonly title: string,
+    readonly content: string,
+    readonly author: string,
+  ) {}
+
+  public handle(register: Register): void {
+    register.events( /* YOUR EVENT HERE */)
+  }
+}
+
+```
 If everything went well, you should have now the code you can see on the right.
 
 ## 3. First event
@@ -129,6 +147,22 @@ return new Post(event.postId, event.title, event.content, event.author)
 
 In the future, we may want to *project* events for this `Post` entity that require retrieving current `Post` values. In that case we would need to make use of `currentPost` argument. 
 
+```typescript
+@Entity
+export class Post {
+  public constructor(
+    public id: UUID,
+    readonly title: string,
+    readonly content: string,
+    readonly author: string,
+  ) {}
+
+  @Reduces(PostCreated)
+  public static projectPostCreated(event: PostCreated, currentPost?: Post): Post {
+    return new Post(event.postId, event.title, event.content, event.author)
+  }
+}
+```
 The full code for the entity can be seen on the right.
 
 ## 5. First read model
@@ -163,6 +197,26 @@ To make it easy, we will allow anyone to read it:
   }
 ```
 and we will project the whole entity
+
+```typescript
+@ReadModel({
+  authorize: 'all'// Specify authorized roles here. Use 'all' to authorize anyone
+})
+export class PostReadModel {
+  public constructor(
+    public id: UUID,
+    readonly title: string,
+    readonly content: string,
+    readonly author: string,
+  ) {}
+
+  @Projects(Post, "id")
+  public static projectPost(entity: Post, currentPostReadModel?: PostReadModel): PostReadModel {
+    return new PostReadModel(entity.id, entity.title, entity.content, entity.author)
+  }
+}
+```
+The read model should look like the code on the right:
 
 ## 6. Deployment
 ```bash
