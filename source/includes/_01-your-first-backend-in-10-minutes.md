@@ -68,7 +68,7 @@ However, we still need to define a couple of things in this file:
 
 For now, we will set the `authorize` configuration to `all`, so anyone can trigger it.
 
-Additionally, the current `CreatePost` command will not trigger any event, so we will have to come back later to set the event that this command will fire up.
+Additionally, the current `CreatePost` command will not trigger any event, so we will have to come back later to set the event that this command will fire up. This is done in the `handle` method of the command class. Leave it as it is for now.
 
 If everything went well, you should have now the code you can see on the right.
 
