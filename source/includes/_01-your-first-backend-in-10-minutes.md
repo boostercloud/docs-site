@@ -219,9 +219,9 @@ To make it easy, we will allow anyone to read it:
 
 ```typescript
 @Projects(Post, "id")
-  public static projectPost(entity: Post, currentPostReadModel?: PostReadModel): PostReadModel {
-    return new PostReadModel(entity.id, entity.title, entity.content, entity.author)
-  }
+public static projectPost(entity: Post, currentPostReadModel?: PostReadModel): PostReadModel {
+  return new PostReadModel(entity.id, entity.title, entity.content, entity.author)
+}
 ```
 and we will project the whole entity
 
