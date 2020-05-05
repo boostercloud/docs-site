@@ -407,7 +407,6 @@ It will ask you to verify the project name, it will be the same one that it was 
 The are many other options for your serverless backend built with Booster Framework:
 
 - GraphQL subscriptions
-- REST API
 - Securing requests depending on user roles
 - Events that trigger more events
 - Reading entity snapshots in handlers to apply domain-driven decisions
