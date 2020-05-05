@@ -314,7 +314,6 @@ We will perform two GraphQL `mutation` queries in order to add information:
 ```
 We should now have two `Posts` in our backend, no authorization header is required since we have allowed `all` access to our commands and read models.
 
-### 7.2 Retrieving all posts
 > GraphQL query, all posts
 
 ```graphql
@@ -327,6 +326,8 @@ query {
   }
 }
 ```
+### 7.2 Retrieving all posts
+
 In order to retrieve the information we just sent, lets perform a GraphQL `query` that will be hitting our read model `PostReadModel`:
 
 > Query all posts response
@@ -353,7 +354,6 @@ In order to retrieve the information we just sent, lets perform a GraphQL `query
 ```
 You should expect a response similar to this:
 
-### 7.3 Retrieving specific post
 > GraphQL query, specific posts
 
 ```graphql
@@ -366,6 +366,8 @@ query {
   }
 }
 ```
+### 7.3 Retrieving specific post
+
 It is also possible to retrieve specific a `Post` by adding the `id` as input, e.g.:
 
 > Query specific posts response
