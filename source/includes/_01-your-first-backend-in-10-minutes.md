@@ -159,9 +159,9 @@ We have now created a command and an event, however, we do not have any data rep
   |- src
     |- entities/Post.ts
 ```
-Another file has been created in your project, you will need to add the implementation of its projection:
+Another file has been created in your project, you will need to add the implementation of its reduction:
 
-> Projection
+> Reduction
 
 ```typescript
 @Reduces(PostCreated)
