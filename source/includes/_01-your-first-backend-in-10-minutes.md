@@ -255,10 +255,10 @@ Everything we need for a basic project is set. It is time to deploy it:
 
 It will take a couple of minutes to deploy all the resources.
 
-> GraphQL endpoint
+> Example GraphQL endpoint
 
 ```text
-https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/production/graphql
+https://<some random number>.execute-api.us-east-1.amazonaws.com/production/graphql
 ```
 When the the serverless backend is successfully deployed you will see information about your stack endpoints. For this basic project we will only need to pick the REST API endpoint, reflected in the output as `backend-application-stack.baseRESTURL`, and append `/graphql` at the end, e.g.:
 
