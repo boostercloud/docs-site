@@ -275,7 +275,6 @@ Let's get started testing the project. We will perform three actions:
 To perform the GraphQL queries, you might want to use something like [Postwoman](https://postwoman.io/graphql), although `curl` would also work.
 
 ### 7.1 Creating posts
-We will perform two GraphQL `mutation` queries in order to add information:
 
 > The first GraphQL mutation:
 
@@ -302,6 +301,7 @@ mutation {
     })
 }
 ```
+We will perform two GraphQL `mutation` queries in order to add information:
 
 > The expected response for each of the requests above should be:
 
@@ -312,7 +312,6 @@ mutation {
   }
 }
 ```
-
 We should now have two `Posts` in our backend, no authorization header is required since we have allowed `all` access to our commands and read models.
 
 ### 7.2 Retrieving all posts
@@ -329,6 +328,8 @@ query {
 }
 ```
 In order to retrieve the information we just sent, lets perform a GraphQL `query` that will be hitting our read model `PostReadModel`:
+
+> Query all posts response
 
 ```json
 {
@@ -352,7 +353,6 @@ In order to retrieve the information we just sent, lets perform a GraphQL `query
 ```
 You should expect a response similar to this:
 
-
 ### 7.3 Retrieving specific post
 > GraphQL query, specific posts
 
@@ -368,7 +368,8 @@ query {
 ```
 It is also possible to retrieve specific a `Post` by adding the `id` as input, e.g.:
 
-You should expect a response similar to this:
+> Query specific posts response
+
 ```json
 {
   "data": {
@@ -381,6 +382,8 @@ You should expect a response similar to this:
   }
 }
 ```
+You should expect a response similar to this:
+
 
 ## 8. Removing stack
 Now, let's undeploy our backend. **Remember that it costs you money to have it on idle**.
