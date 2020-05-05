@@ -71,6 +71,8 @@ For the first part, we will let anyone to trigger it. To do so, configure the `a
 
 Additionally, the current `CreatePost` command will not trigger any event, so we will have to come back later to set the event that this command will fire up. This is done in the `handle` method of the command class. Leave it as it is for now.
 
+> `CreatePost` command
+
 ```typescript
 @Command({
   authorize: 'all'// Specify authorized roles here. Use 'all' to authorize anyone
@@ -115,6 +117,25 @@ public entityID(): UUID {
 ```
 There is one small thing that we have to define in the above file, which is the returned value for `EntityID()`. We will set the post `UUID`. It should look like this:
 
+> `PostCreated` event
+
+```typescript
+@Event
+export class PostCreated {
+  public constructor(
+    readonly postId: UUID,
+    readonly title: string,
+    readonly content: string,
+    readonly author: string,
+  ) {}
+
+  public entityID(): UUID {
+    return this.postId
+  }
+}
+```
+Your event should look like this:
+
 > Add event to `CreatePost` Command
 
 ```typescript
@@ -150,6 +171,8 @@ return new Post(event.postId, event.title, event.content, event.author)
 ```
 
 In the future, we may want to *project* events for this `Post` entity that require retrieving current `Post` values. In that case we would need to make use of `currentPost` argument. 
+
+> `Post` entity
 
 ```typescript
 @Entity
@@ -201,6 +224,8 @@ To make it easy, we will allow anyone to read it:
   }
 ```
 and we will project the whole entity
+
+> `PostReadModel` read model
 
 ```typescript
 @ReadModel({
