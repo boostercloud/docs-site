@@ -106,12 +106,16 @@ In this type of backend architectures, events can be triggered by commands or by
 ```
 You will realize that a new file has been created:
 
+> Define entity id
+
 ```typescript
 public entityID(): UUID {
   return this.postId
 }
 ```
 There is one small thing that we have to define in the above file, which is the returned value for `EntityID()`. We will set the post `UUID`. It should look like this:
+
+> Add event to `CreatePost` Command
 
 ```typescript
 public handle(register: Register): void {
