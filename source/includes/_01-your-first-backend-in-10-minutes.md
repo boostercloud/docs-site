@@ -388,8 +388,11 @@ You should expect a response similar to this:
 
 
 ## 8. Removing stack
-Now, let's undeploy our backend. **Remember that it costs you money to have it on idle**.
+Now, let's undeploy our backend. 
 
+<aside class="warning">
+<b>Remember:</b> It costs you money to have it on idle!
+</aside>
 > Undeploy stack
 
 ```bash
