@@ -140,8 +140,8 @@ Your event should look like this:
 
 ```typescript
 public handle(register: Register): void {
-    register.events(new PostCreated(this.postId, this.title, this.content, this.author))
-  }
+  register.events(new PostCreated(this.postId, this.title, this.content, this.author))
+}
 ```
 Now we can go back to the command we created before and add our new event `PostCreated` to the register of events. Your `handle` should look like this:
 
