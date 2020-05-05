@@ -263,6 +263,38 @@
               </ul>
           </li>
           <li>
+            <a href="#your-first-booster-app-in-10-minutes" class="toc-h1 toc-link" data-title="Your first Booster app in 10 minutes">Your first Booster app in 10 minutes</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#1-create-project" class="toc-h2 toc-link" data-title="1. Create project">1. Create project</a>
+                  </li>
+                  <li>
+                    <a href="#2-first-command" class="toc-h2 toc-link" data-title="2. First command">2. First command</a>
+                  </li>
+                  <li>
+                    <a href="#3-first-event" class="toc-h2 toc-link" data-title="3. First event">3. First event</a>
+                  </li>
+                  <li>
+                    <a href="#4-first-entity" class="toc-h2 toc-link" data-title="4. First entity">4. First entity</a>
+                  </li>
+                  <li>
+                    <a href="#5-first-read-model" class="toc-h2 toc-link" data-title="5. First read model">5. First read model</a>
+                  </li>
+                  <li>
+                    <a href="#6-deployment" class="toc-h2 toc-link" data-title="6. Deployment">6. Deployment</a>
+                  </li>
+                  <li>
+                    <a href="#7-testing" class="toc-h2 toc-link" data-title="7. Testing">7. Testing</a>
+                  </li>
+                  <li>
+                    <a href="#8-removing-stack" class="toc-h2 toc-link" data-title="8. Removing stack">8. Removing stack</a>
+                  </li>
+                  <li>
+                    <a href="#9-more-functionalities" class="toc-h2 toc-link" data-title="9. More functionalities">9. More functionalities</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#architecture-and-core-concepts" class="toc-h1 toc-link" data-title="Architecture and core concepts">Architecture and core concepts</a>
           </li>
           <li>
@@ -670,6 +702,401 @@ command into your terminal: <code>boost version</code></p>
 <p>If everything went well, you should get something like <code>@boostercloud/cli/0.3.0</code></p>
 
 <p>You are now ready to <a href="#your-first-booster-app">write your first Booster app</a>!</p>
+<h1 id='your-first-booster-app-in-10-minutes'>Your first Booster app in 10 minutes</h1>
+<p>In this section, we will go through all the necessary steps to have the backend for a blog application up and running in a few minutes.</p>
+
+<p>The steps to follow will be:</p>
+
+<ul>
+<li><a href="#1-create-the-project">Create project</a></li>
+<li><a href="#2-first-command">First command</a></li>
+<li><a href="#3-first-event">First event</a></li>
+<li><a href="#4-first-entity">First entity</a></li>
+<li><a href="#5-first-read-model">First read model</a></li>
+<li><a href="#6-deployment">Deployment</a></li>
+<li><a href="#7-testing">Testing</a>
+
+<ul>
+<li><a href="#71-creating-posts">Creating posts</a></li>
+<li><a href="#72-retrieving-all-posts">Retrieving all posts</a></li>
+<li><a href="#73-retrieving-specific-post">Retrieving specific post</a></li>
+</ul></li>
+<li><a href="#8-removing-stack">Removing stack</a></li>
+<li><a href="#9-further-improvements">Further improvements</a></li>
+</ul>
+<h2 id='1-create-project'>1. Create project</h2>
+<blockquote>
+<p>Create project</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell"><code>boost new:project &lt;project-name&gt;
+</code></pre></div>
+<p>First of all, we need to create a base Booster project. To do so, we will use the Booster CLI, which
+can be invoked by typing <code>boost</code> inside of a terminal.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>|- &lt;your-project-name&gt;
+  |- src
+    |- commands
+    |- common
+    |- entities
+    |- events
+    |- read-models
+    ...
+</code></pre></div>
+<p>It will generate a folder
+with your selected project name.</p>
+
+<p>You will need to answer a few questions in order to configure the project. The last step asks you about a <em>provider package</em>, for this tutorial, select <em>AWS</em>.</p>
+
+<p>Once the project has been successfully created, you will need to move to the new directory, you can do so by typing <code>cd &lt;your project name&gt;</code> in a terminal. </p>
+
+<p>Now open the project in your most preferred IDE, e.g. <a href="https://code.visualstudio.com/">Visual Studio Code</a>.</p>
+<h2 id='2-first-command'>2. First command</h2>
+<p>We will now define our first command, which will allow us to create posts in our blog.</p>
+
+<blockquote>
+<p>New command</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell"><code>boost new:command CreatePost <span class="nt">--fields</span> postId:UUID title:string content:string author:string
+</code></pre></div>
+<p>In a terminal, from the root of your project, type:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>|- &lt;your-project-name&gt;
+  |- src
+    |- commands/CreatePost.ts
+</code></pre></div>
+<p>These commands creates most of the code for us, which can be seen in</p>
+
+<p>However, we still need to define a couple of things in this file:</p>
+
+<ul>
+<li>Who can trigger our command</li>
+<li>What events should be triggered</li>
+</ul>
+
+<p>For the first part, we will let anyone to trigger it. To do so, configure the <code>authorize</code> command option to <code>&quot;all&quot;</code> (yes, between quotes, it is a string). If you cannot find it, it is right after the <code>@Command</code> decorator.</p>
+
+<p>Additionally, the current <code>CreatePost</code> command will not trigger any event, so we will have to come back later to set the event that this command will fire up. This is done in the <code>handle</code> method of the command class. Leave it as it is for now.</p>
+
+<blockquote>
+<p><code>CreatePost</code> command</p>
+</blockquote>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Command</span><span class="p">({</span>
+  <span class="na">authorize</span><span class="p">:</span> <span class="dl">'</span><span class="s1">all</span><span class="dl">'</span><span class="c1">// Specify authorized roles here. Use 'all' to authorize anyone</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">CreatePost</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kd">constructor</span><span class="p">(</span>
+    <span class="nx">readonly</span> <span class="nx">postId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">content</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="p">)</span> <span class="p">{}</span>
+
+  <span class="kr">public</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">register</span><span class="p">:</span> <span class="nx">Register</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="nx">register</span><span class="p">.</span><span class="nx">events</span><span class="p">(</span> <span class="cm">/* YOUR EVENT HERE */</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p>If everything went well, you should have now the code you can see on the right.</p>
+<h2 id='3-first-event'>3. First event</h2>
+<blockquote>
+<p>New event</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell"><code>boost new:event PostCreated <span class="nt">--fields</span> postId:UUID title:string content:string author:string
+</code></pre></div>
+<p>In this type of backend architectures, events can be triggered by commands or by other events. We will create an event that defines a <code>Post</code> creation. </p>
+<div class="highlight"><pre class="highlight plaintext"><code>|- &lt;your-project-name&gt;
+  |- src
+    |- events/PostCreated.ts
+</code></pre></div>
+<p>You will realize that a new file has been created:</p>
+
+<blockquote>
+<p>Define entity id</p>
+</blockquote>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="kr">public</span> <span class="nx">entityID</span><span class="p">():</span> <span class="nx">UUID</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">postId</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>There is one small thing that we have to define in the above file, which is the returned value for <code>EntityID()</code>. We will set the post <code>UUID</code>. It should look like this:</p>
+
+<blockquote>
+<p><code>PostCreated</code> event</p>
+</blockquote>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Event</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">PostCreated</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kd">constructor</span><span class="p">(</span>
+    <span class="nx">readonly</span> <span class="nx">postId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">content</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="p">)</span> <span class="p">{}</span>
+
+  <span class="kr">public</span> <span class="nx">entityID</span><span class="p">():</span> <span class="nx">UUID</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">postId</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Your event should look like this:</p>
+
+<blockquote>
+<p>Add event to <code>CreatePost</code> Command</p>
+</blockquote>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="kr">public</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">register</span><span class="p">:</span> <span class="nx">Register</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="nx">register</span><span class="p">.</span><span class="nx">events</span><span class="p">(</span><span class="k">new</span> <span class="nx">PostCreated</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">postId</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">author</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Now we can go back to the command we created before and add our new event <code>PostCreated</code> to the register of events. Your <code>handle</code> should look like this:</p>
+<h2 id='4-first-entity'>4. First entity</h2>
+<blockquote>
+<p>New entity</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell"><code>boost new:entity Post <span class="nt">--fields</span> title:string content:string author:string <span class="nt">--reduces</span> PostCreated
+</code></pre></div>
+<p>We have now created a command and an event, however, we do not have any data representation of a <code>Post</code>. As a result, we will create an <code>entity</code>.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>|- &lt;your-project-name&gt;
+  |- src
+    |- entities/Post.ts
+</code></pre></div>
+<p>Another file has been created in your project, you will need to add the implementation of its reduction:</p>
+
+<blockquote>
+<p>Reduction</p>
+</blockquote>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Reduces</span><span class="p">(</span><span class="nx">PostCreated</span><span class="p">)</span>
+<span class="kr">public</span> <span class="kd">static</span> <span class="nx">reducePostCreated</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">PostCreated</span><span class="p">,</span> <span class="nx">currentPost</span><span class="p">?:</span> <span class="nx">Post</span><span class="p">):</span> <span class="nx">Post</span> <span class="p">{</span>
+<span class="k">return</span> <span class="k">new</span> <span class="nx">Post</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">postId</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">author</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In the future, we may want to <em>project</em> events for this <code>Post</code> entity that require retrieving current <code>Post</code> values. In that case we would need to make use of <code>currentPost</code> argument. </p>
+
+<blockquote>
+<p><code>Post</code> entity</p>
+</blockquote>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Entity</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Post</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kd">constructor</span><span class="p">(</span>
+    <span class="kr">public</span> <span class="nx">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">content</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="p">)</span> <span class="p">{}</span>
+
+  <span class="p">@</span><span class="nd">Reduces</span><span class="p">(</span><span class="nx">PostCreated</span><span class="p">)</span>
+  <span class="kr">public</span> <span class="kd">static</span> <span class="nx">reducePostCreated</span><span class="p">(</span><span class="nx">event</span><span class="p">:</span> <span class="nx">PostCreated</span><span class="p">,</span> <span class="nx">currentPost</span><span class="p">?:</span> <span class="nx">Post</span><span class="p">):</span> <span class="nx">Post</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Post</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">postId</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">author</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The full code for the entity can be seen on the right.</p>
+<h2 id='5-first-read-model'>5. First read model</h2>
+<blockquote>
+<p>New read model</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell"><code>boost new:read-model PostReadModel <span class="nt">--fields</span> title:string content:string author:string <span class="nt">--projects</span> Post
+</code></pre></div>
+<p>Almost everything is set-up. We just need to provide a way to view the <code>Posts</code> of our blog. For that, we will create a <code>read model</code>.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>|- &lt;your-project-name&gt;
+  |- src
+    |- read-models/PostReadModel.ts
+</code></pre></div>
+<p>Once the read-model code has been generated, we will also need to define a few things:</p>
+
+<ul>
+<li>Who can read the <code>Posts</code></li>
+<li>How the data is manipulated before returning it</li>
+</ul>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">ReadModel</span><span class="p">({</span>
+  <span class="na">authorize</span><span class="p">:</span> <span class="dl">'</span><span class="s1">all</span><span class="dl">'</span><span class="c1">// Specify authorized roles here. Use 'all' to authorize anyone</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>To make it easy, we will allow anyone to read it:</p>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Projects</span><span class="p">(</span><span class="nx">Post</span><span class="p">,</span> <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">)</span>
+<span class="kr">public</span> <span class="kd">static</span> <span class="nx">projectPost</span><span class="p">(</span><span class="nx">entity</span><span class="p">:</span> <span class="nx">Post</span><span class="p">,</span> <span class="nx">currentPostReadModel</span><span class="p">?:</span> <span class="nx">PostReadModel</span><span class="p">):</span> <span class="nx">PostReadModel</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">PostReadModel</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">author</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>and we will project the whole entity</p>
+
+<blockquote>
+<p><code>PostReadModel</code> read model</p>
+</blockquote>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">ReadModel</span><span class="p">({</span>
+  <span class="na">authorize</span><span class="p">:</span> <span class="dl">'</span><span class="s1">all</span><span class="dl">'</span><span class="c1">// Specify authorized roles here. Use 'all' to authorize anyone</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">PostReadModel</span> <span class="p">{</span>
+  <span class="kr">public</span> <span class="kd">constructor</span><span class="p">(</span>
+    <span class="kr">public</span> <span class="nx">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">title</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">content</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="nx">readonly</span> <span class="nx">author</span><span class="p">:</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="p">)</span> <span class="p">{}</span>
+
+  <span class="p">@</span><span class="nd">Projects</span><span class="p">(</span><span class="nx">Post</span><span class="p">,</span> <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">)</span>
+  <span class="kr">public</span> <span class="kd">static</span> <span class="nx">projectPost</span><span class="p">(</span><span class="nx">entity</span><span class="p">:</span> <span class="nx">Post</span><span class="p">,</span> <span class="nx">currentPostReadModel</span><span class="p">?:</span> <span class="nx">PostReadModel</span><span class="p">):</span> <span class="nx">PostReadModel</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">PostReadModel</span><span class="p">(</span><span class="nx">entity</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">entity</span><span class="p">.</span><span class="nx">author</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The read model should look like the code on the right:</p>
+<h2 id='6-deployment'>6. Deployment</h2><div class="highlight"><pre class="highlight shell"><code>boost deploy <span class="nt">-e</span> production
+</code></pre></div>
+<p>Everything we need for a basic project is set. It is time to deploy it:</p>
+
+<p>It will take a couple of minutes to deploy all the resources.</p>
+
+<blockquote>
+<p>Example GraphQL endpoint</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>https://&lt;some random number&gt;.execute-api.us-east-1.amazonaws.com/production/graphql
+</code></pre></div>
+<p>When the the serverless backend is successfully deployed you will see information about your stack endpoints. For this basic project we will only need to pick the REST API endpoint, reflected in the output as <code>backend-application-stack.baseRESTURL</code>, and append <code>/graphql</code> at the end, e.g.:</p>
+
+<p>We will use this GraphQL API endpoint to test our backend.</p>
+<h2 id='7-testing'>7. Testing</h2>
+<p>Let&#39;s get started testing the project. We will perform three actions:</p>
+
+<ul>
+<li>Add a couple of posts</li>
+<li>Retrieve all posts</li>
+<li>Retrieve a specific post</li>
+</ul>
+
+<p>To perform the GraphQL queries, you might want to use something like <a href="https://postwoman.io/graphql">Postwoman</a>, although <code>curl</code> would also work.</p>
+<h3 id='7-1-creating-posts'>7.1 Creating posts</h3>
+<blockquote>
+<p>The first GraphQL mutation:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="n">CreatePost</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">postId</span><span class="p">:</span><span class="w"> </span><span class="s2">"95ddb544-4a60-439f-a0e4-c57e806f2f6e"</span><span class="p">,</span><span class="w">
+        </span><span class="n">title</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first post"</span><span class="p">,</span><span class="w">
+        </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am so excited to write my first post"</span><span class="p">,</span><span class="w">
+        </span><span class="n">author</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some developer"</span><span class="w">
+    </span><span class="p">})</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The second GraphQL mutation:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="n">CreatePost</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">postId</span><span class="p">:</span><span class="w"> </span><span class="s2">"05670e55-fd31-490e-b585-3a0096db0412"</span><span class="p">,</span><span class="w">
+        </span><span class="n">title</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my second post"</span><span class="p">,</span><span class="w">
+        </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am so excited to write my second post"</span><span class="p">,</span><span class="w">
+        </span><span class="n">author</span><span class="p">:</span><span class="w"> </span><span class="s2">"The other developer"</span><span class="w">
+    </span><span class="p">})</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>We will perform two GraphQL <code>mutation</code> queries in order to add information:</p>
+
+<blockquote>
+<p>The expected response for each of the requests above should be:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"CreatePost"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>We should now have two <code>Posts</code> in our backend, no authorization header is required since we have allowed <code>all</code> access to our commands and read models.</p>
+
+<blockquote>
+<p>GraphQL query, all posts</p>
+</blockquote>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">PostReadModels</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+      </span><span class="n">title</span><span class="w">
+      </span><span class="n">content</span><span class="w">
+      </span><span class="n">author</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='7-2-retrieving-all-posts'>7.2 Retrieving all posts</h3>
+<p>In order to retrieve the information we just sent, lets perform a GraphQL <code>query</code> that will be hitting our read model <code>PostReadModel</code>:</p>
+
+<blockquote>
+<p>Query all posts response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PostReadModels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"05670e55-fd31-490e-b585-3a0096db0412"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my second post"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am so excited to write my second post"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The other developer"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95ddb544-4a60-439f-a0e4-c57e806f2f6e"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first post"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am so excited to write my first post"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some developer"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You should expect a response similar to this:</p>
+
+<blockquote>
+<p>GraphQL query, specific posts</p>
+</blockquote>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">PostReadModel</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"95ddb544-4a60-439f-a0e4-c57e806f2f6e"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+      </span><span class="n">title</span><span class="w">
+      </span><span class="n">content</span><span class="w">
+      </span><span class="n">author</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='7-3-retrieving-specific-post'>7.3 Retrieving specific post</h3>
+<p>It is also possible to retrieve specific a <code>Post</code> by adding the <code>id</code> as input, e.g.:</p>
+
+<blockquote>
+<p>Query specific posts response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PostReadModel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95ddb544-4a60-439f-a0e4-c57e806f2f6e"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first post"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am so excited to write my first post"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some developer"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You should expect a response similar to this:</p>
+<h2 id='8-removing-stack'>8. Removing stack</h2>
+<p>Now, let&#39;s undeploy our backend. </p>
+
+<aside class="warning">
+<b>Remember:</b> It costs you money to have it on idle!
+</aside>
+
+<blockquote>
+<p>Undeploy stack</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell"><code>boost nuke <span class="nt">-e</span> production
+</code></pre></div>
+<p>To do so, execute the following command from the root of your project, in a terminal:</p>
+
+<p>It will ask you to verify the project name, it will be the same one that it was written when we created the project. If you don&#39;t remember the name, go to <code>config/production.ts</code> and copy the <code>name</code> field. </p>
+<h2 id='9-more-functionalities'>9. More functionalities</h2>
+<p>The are many other options for your serverless backend built with Booster Framework:</p>
+
+<ul>
+<li>GraphQL subscriptions</li>
+<li>Securing requests depending on user roles</li>
+<li>Events that trigger more events</li>
+<li>Reading entity snapshots in handlers to apply domain-driven decisions</li>
+<li>and much more...</li>
+</ul>
+
+<p>But we won&#39;t be covering them in this section. Keep reading if you want to know more!</p>
+
+<aside class="success">
+Congratulations! you've built a serverless backend in less than 10 minutes. We hope you have enjoyed discovering the magic of Booster Framework, please keep reading if you want to know more about it.
+</aside>
 <h1 id='architecture-and-core-concepts'>Architecture and core concepts</h1>
 <p>Booster’s architecture is heavily inspired by the <a href="https://www.martinfowler.com/bliki/CQRS.html">CQRS</a> and <a href="https://martinfowler.com/eaaDev/EventSourcing.html">Event Sourcing</a> patterns.
 These patterns have proven to work well for highly-distributed high available systems, being a tool to make resilient
