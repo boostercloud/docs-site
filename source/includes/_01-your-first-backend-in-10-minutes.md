@@ -185,7 +185,7 @@ export class Post {
   ) {}
 
   @Reduces(PostCreated)
-  public static projectPostCreated(event: PostCreated, currentPost?: Post): Post {
+  public static reducePostCreated(event: PostCreated, currentPost?: Post): Post {
     return new Post(event.postId, event.title, event.content, event.author)
   }
 }
