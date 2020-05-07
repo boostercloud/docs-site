@@ -81,11 +81,20 @@
           window.history.replaceState(null, "", best);
         }
         var thisTitle = $best.data("title")
+        let title;
         if (thisTitle !== undefined && thisTitle.length > 0) {
+          title = thisTitle;
           document.title = thisTitle + " – " + originalTitle;
         } else {
+          title = originalTitle;
           document.title = originalTitle;
         }
+
+        // Section navigation event
+        dataLayer.push({
+          "event": "section-viewed",
+          "sectionTitle": title
+        });
       }
     };
 
