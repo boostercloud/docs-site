@@ -624,3 +624,75 @@ html, body {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+// Cookies
+
+#cookie_container {
+  position: fixed;
+  bottom: 5px;
+  height: auto;
+  width: 98%;
+  right: 5px;
+  display: none;
+  background-color: white;
+  z-index: 999;
+}
+
+@media screen and (min-width: 1025px) and (min-height: 768px){
+  #cookie_container {
+    width: 22%;
+    padding: 8px;
+  bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media screen and (min-width: 1552px) and (min-height: 768px){
+  #cookie_container {
+    width: 15%;
+    padding: 10px;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+#cookie_text {
+  font-family: 'Lato';
+  padding: 10px 30px;
+  line-height: 25px;
+  font-size: 15px;
+  margin: 0;
+  color: #475cf1;
+}
+
+#cookie_text > a:visited {
+  color: #475cf1;
+}
+
+#close_cookies_button {
+  cursor: pointer;
+  grid-column-start: 2;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 17px;
+  color: #475cf1;
+}
+
+
+#accept_cookies_button {
+  width: auto;
+  display: inline-block;
+  margin: 10px 20px 10px 20px;
+  padding: 5px 2px 5px 2px;
+  border-radius: 15px;
+  line-height: 25px;
+  font-size: 15px;
+  background-color: rgba(71, 92, 241, 0.2);
+  color: #475cf1;
+}
+
+.link {
+  font-weight: bold; 
+  text-decoration:underline; 
+}
