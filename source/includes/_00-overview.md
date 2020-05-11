@@ -10,7 +10,7 @@ not a full guide.
 
 Just get a taste of Booster, and when you're ready, you can
 [install Booster](#installing-booster),
-begin [writing your first Booster app](#your-first-booster-app),
+begin [writing your first Booster app](#your-first-booster-app-in-10-minutes),
 or even get into the [in-depth reference documentation](#booster-in-depth).
 
 ## Think about user actions, not endpoints
@@ -194,5 +194,5 @@ Booster defaults to the strictest option, so you don't have to worry about secur
 configuration beforehand.
 
 Thrilled already? Jump to [the installation steps](#installing-booster), read
-[how to write your first Booster app](#your-first-booster-app), and
+[how to write your first Booster app](#your-first-booster-app-in-10-minutes), and
 join the community in the [Spectrum chat](https://spectrum.chat/boostercloud).
