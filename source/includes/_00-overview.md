@@ -108,16 +108,13 @@ Define your data with TypeScript types, without having to learn a new
 data definition language.
 
 Entities are the central part of your domain. They are a representation
-of your event stream at some point in time.
+of your event stream at some point in time. 
 
 You specify the fields of your entity as all the important things that
-will be generated from your events.
+will be generated from your events. Then you change those fields as events occur.
 
-No alien libraries, no need about thinking in the state of the database,
+No alien libraries, no need to think about state of the database,
 just plain TypeScript and some cool decorators.
-
-Database failure? Don't fret! The entities will be regenerated from the
-events.
 
 On top of that, Entities serve as automatic snapshots, so your app is
 very fast!
@@ -132,22 +129,22 @@ export class ChatroomActivity {
     readonly lastActivity: Date,
   ) {}
 
-  @Projection(Chatroom, 'id')
+  @Projects(Chatroom, 'id')
   public static updateWithChatroom(chatroom: Chatroom, prev?: ChatroomActivity): ChatroomActivity {
     return new ChatroomActivity(chatroom.id, chatroom.lastActivity)
   }
 }
 ```
 
-Most of the time, you don't want to expose all of the data you are storing
+Most of the time, you don't want to expose all the data you are storing
 in your system. You might want to hide some parts, transform others.
 
-Also, you might want to combine some entities into one object so the
+Also, you might want to combine some entities into one object, so the
 client can read them more efficiently.
 
-Get your data delivered in the shape that you want, instantly to your
-client. Booster will push the changes live, so you only have to focus
-in rendering it or consuming in the way you require.
+Read models allow you to do all that. With them you can get your data delivered 
+in the shape that you want, instantly to your client. Booster will push the changes
+live, so you only have to focus on consuming it in the way you require.
 
 ## GraphQL is hard? Who said that?
 
@@ -173,19 +170,19 @@ subscription {
 
 GraphQL is nice on the client side, but on the backend, it requires you
 to do quite some work. Defining resolvers, schema, operations, and
-friends, takes some time, and it is not the most thrilling work you can
+friends take some time, and it is not the most thrilling work you can
 do. Especially when your domain has nothing to do with managing a GraphQL
 API.
 
-Each Command is mapped to a GraphQL mutation, and each ReadModel, is mapped
+Each Command is mapped to a GraphQL mutation, and each ReadModel is mapped
 to a GraphQL query or subscription.
 
 Just write your Booster app as you would do normally, and enjoy a GraphQL
-API for free, with it's schema, operations and everything.
+API for free, with its schema, operations, and everything.
 
-## Fasten your seatbelts
+## Fasten your seat belts
 
-This is a simplified view of Booster. It supports more other features
+This is a simplified view of Booster. It supports many other features
 that will definitely speed-up your development process. Among them:
 
 * Automatic Migrations - with them you can easily introduce changes in your data
@@ -193,7 +190,7 @@ that will definitely speed-up your development process. Among them:
 * Authentication - integrated with your cloud provider, so you don't have to manage security yourself
 
 All of this under the best practices of security and privacy of your cloud provider.
-Booster defaults to the most strict option, so you don't have to worry about security
+Booster defaults to the strictest option, so you don't have to worry about security
 configuration beforehand.
 
 Thrilled already? Jump to [the installation steps](#installing-booster), read
