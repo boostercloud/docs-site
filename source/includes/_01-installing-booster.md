@@ -4,9 +4,9 @@
 
 You can develop with Booster using any of the following operating systems:
 
-* Linux
-* MacOS
-* Windows (Native and WSL)
+- Linux
+- MacOS
+- Windows (Native and WSL)
 
 Booster hasn't been tested under other platforms like BSD, if you want to
 develop under those, proceed at your own risk!
@@ -32,15 +32,15 @@ accordingly.
 If you don't have Node.js installed, you can download an installer [from it's website](https://nodejs.org/en/), or you can install it using your system's
 package manager.
 
-* **Ubuntu** - using [`apt`](https://wiki.debian.org/Apt)
-* **MacOS** - using [`brew`](https://brew.sh/)
-* **Windows** - using [`chocolatey`](https://chocolatey.org/)
+- **Ubuntu** - using [`apt`](https://wiki.debian.org/Apt)
+- **MacOS** - using [`brew`](https://brew.sh/)
+- **Windows** - using [`chocolatey`](https://chocolatey.org/)
 
 If for some reason you are working with other projects that require a different
 Node.js version, we recommend that you use a version manager like:
 
-* [`nvm`](https://github.com/nvm-sh/nvm) - Works with MacOS, Linux and WSL
-* [`nvm-windows`](https://github.com/coreybutler/nvm-windows) - Works with native Windows
+- [`nvm`](https://github.com/nvm-sh/nvm) - Works with MacOS, Linux and WSL
+- [`nvm-windows`](https://github.com/coreybutler/nvm-windows) - Works with native Windows
 
 > Verify your Node.js and `npm` versions
 
@@ -69,23 +69,14 @@ cloud provider, but to deploy, and test your application, you will need it.
 
 <aside class="warning">
 <b>Note:</b> Booster is and always will be free, but the resources you use in AWS
-are not.
-Most of them are pay-per-use, which means that your system is absolutely free as
-long as no one is using it, <b>but some aren't</b>.
-</br>
-</br>
-Right now the cost of an idle Booster application is approximately <b>$12 per month</b>
-or the equivalent to the fraction of time you have it running
-(e.g. <b>$3 per week</b>). This is mainly due to
-<a href="https://aws.amazon.com/kinesis/">AWS Kinesis</a>.
-The Booster contributors are working hard to remove this resource in the best way
-possible, so you can enjoy developing production-ready, cloud-native apps without
-paying for idling.
+are not. All of the resources are part of the AWS free tier, and even if you are not
+eligible for it, for testing your app it shouldn't cost you more than a few cents.
+Still, <b>we recommend you undeploy your app
+after you finished testing it, and you don't plan using it anymore.</b>
 </aside>
 
 Now it is a good time to create that AWS account, you can do so from
 [the AWS console registration](https://portal.aws.amazon.com/billing/signup).
-
 
 Once you've registered yourself, you will need to configure your system to use your
 account. To do so, login into the [AWS Console](https://console.aws.amazon.com), and
@@ -156,12 +147,12 @@ by running `git help`.
 
 Follow the steps on the right, they will:
 
-* Install [`verdaccio`](https://verdaccio.org/), an `npm` local proxy
-* Run `verdaccio`, and register yourself locally
-* Get the Booster source code
-* Install `lerna`, the tool that manages all the Booster packages
-* Publish the Booster version locally
-* Install the Booster development version
+- Install [`verdaccio`](https://verdaccio.org/), an `npm` local proxy
+- Run `verdaccio`, and register yourself locally
+- Get the Booster source code
+- Install `lerna`, the tool that manages all the Booster packages
+- Publish the Booster version locally
+- Install the Booster development version
 
 If everything went correctly, you should have the Booster CLI installed.
 
