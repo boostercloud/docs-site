@@ -196,7 +196,7 @@ The full code for the entity can be seen on the right.
 > New read model
 
 ```bash
-boost new:read-model PostReadModel --fields title:string content:string author:string --projects Post
+boost new:read-model PostReadModel --fields title:string content:string author:string --projects Post:id
 ```
 Almost everything is set-up. We just need to provide a way to view the `Posts` of our blog. For that, we will create a `read model`.
 
