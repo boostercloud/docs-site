@@ -241,7 +241,7 @@
                     <a href="#graphql-is-hard-who-said-that" class="toc-h2 toc-link" data-title="GraphQL is hard? Who said that?">GraphQL is hard? Who said that?</a>
                   </li>
                   <li>
-                    <a href="#fasten-your-seatbelts" class="toc-h2 toc-link" data-title="Fasten your seatbelts">Fasten your seatbelts</a>
+                    <a href="#fasten-your-seat-belts" class="toc-h2 toc-link" data-title="Fasten your seat belts">Fasten your seat belts</a>
                   </li>
               </ul>
           </li>
@@ -373,7 +373,7 @@ not a full guide.</p>
 
 <p>Just get a taste of Booster, and when you&#39;re ready, you can
 <a href="#installing-booster">install Booster</a>,
-begin <a href="#your-first-booster-app">writing your first Booster app</a>,
+begin <a href="#your-first-booster-app-in-10-minutes">writing your first Booster app</a>,
 or even get into the <a href="#booster-in-depth">in-depth reference documentation</a>.</p>
 <h2 id='think-about-user-actions-not-endpoints'>Think about user actions, not endpoints</h2><div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="p">@</span><span class="nd">Command</span><span class="p">({</span>
   <span class="na">authorize</span><span class="p">:</span> <span class="dl">'</span><span class="s1">all</span><span class="dl">'</span><span class="p">,</span>
@@ -456,16 +456,13 @@ and re-run it from the past.</p>
 data definition language.</p>
 
 <p>Entities are the central part of your domain. They are a representation
-of your event stream at some point in time.</p>
+of your event stream at some point in time. </p>
 
 <p>You specify the fields of your entity as all the important things that
-will be generated from your events.</p>
+will be generated from your events. Then you change those fields as events occur.</p>
 
-<p>No alien libraries, no need about thinking in the state of the database,
+<p>No alien libraries, no need to think about state of the database,
 just plain TypeScript and some cool decorators.</p>
-
-<p>Database failure? Don&#39;t fret! The entities will be regenerated from the
-events.</p>
 
 <p>On top of that, Entities serve as automatic snapshots, so your app is
 very fast!</p>
@@ -476,21 +473,21 @@ very fast!</p>
     <span class="nx">readonly</span> <span class="nx">lastActivity</span><span class="p">:</span> <span class="nb">Date</span><span class="p">,</span>
   <span class="p">)</span> <span class="p">{}</span>
 
-  <span class="p">@</span><span class="nd">Projection</span><span class="p">(</span><span class="nx">Chatroom</span><span class="p">,</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">@</span><span class="nd">Projects</span><span class="p">(</span><span class="nx">Chatroom</span><span class="p">,</span> <span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">)</span>
   <span class="kr">public</span> <span class="kd">static</span> <span class="nx">updateWithChatroom</span><span class="p">(</span><span class="nx">chatroom</span><span class="p">:</span> <span class="nx">Chatroom</span><span class="p">,</span> <span class="nx">prev</span><span class="p">?:</span> <span class="nx">ChatroomActivity</span><span class="p">):</span> <span class="nx">ChatroomActivity</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">ChatroomActivity</span><span class="p">(</span><span class="nx">chatroom</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nx">chatroom</span><span class="p">.</span><span class="nx">lastActivity</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Most of the time, you don&#39;t want to expose all of the data you are storing
+<p>Most of the time, you don&#39;t want to expose all the data you are storing
 in your system. You might want to hide some parts, transform others.</p>
 
-<p>Also, you might want to combine some entities into one object so the
+<p>Also, you might want to combine some entities into one object, so the
 client can read them more efficiently.</p>
 
-<p>Get your data delivered in the shape that you want, instantly to your
-client. Booster will push the changes live, so you only have to focus
-in rendering it or consuming in the way you require.</p>
+<p>Read models allow you to do all that. With them you can get your data delivered 
+in the shape that you want, instantly to your client. Booster will push the changes
+live, so you only have to focus on consuming it in the way you require.</p>
 <h2 id='graphql-is-hard-who-said-that'>GraphQL is hard? Who said that?</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="c"># Send a command</span><span class="w">
 </span><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">SendMessage</span><span class="p">(</span><span class="w">
@@ -511,17 +508,17 @@ in rendering it or consuming in the way you require.</p>
 </span></code></pre></div>
 <p>GraphQL is nice on the client side, but on the backend, it requires you
 to do quite some work. Defining resolvers, schema, operations, and
-friends, takes some time, and it is not the most thrilling work you can
+friends take some time, and it is not the most thrilling work you can
 do. Especially when your domain has nothing to do with managing a GraphQL
 API.</p>
 
-<p>Each Command is mapped to a GraphQL mutation, and each ReadModel, is mapped
+<p>Each Command is mapped to a GraphQL mutation, and each ReadModel is mapped
 to a GraphQL query or subscription.</p>
 
 <p>Just write your Booster app as you would do normally, and enjoy a GraphQL
-API for free, with it&#39;s schema, operations and everything.</p>
-<h2 id='fasten-your-seatbelts'>Fasten your seatbelts</h2>
-<p>This is a simplified view of Booster. It supports more other features
+API for free, with its schema, operations, and everything.</p>
+<h2 id='fasten-your-seat-belts'>Fasten your seat belts</h2>
+<p>This is a simplified view of Booster. It supports many other features
 that will definitely speed-up your development process. Among them:</p>
 
 <ul>
@@ -531,11 +528,11 @@ that will definitely speed-up your development process. Among them:</p>
 </ul>
 
 <p>All of this under the best practices of security and privacy of your cloud provider.
-Booster defaults to the most strict option, so you don&#39;t have to worry about security
+Booster defaults to the strictest option, so you don&#39;t have to worry about security
 configuration beforehand.</p>
 
 <p>Thrilled already? Jump to <a href="#installing-booster">the installation steps</a>, read
-<a href="#your-first-booster-app">how to write your first Booster app</a>, and
+<a href="#your-first-booster-app-in-10-minutes">how to write your first Booster app</a>, and
 join the community in the <a href="https://spectrum.chat/boostercloud">Spectrum chat</a>.</p>
 <h1 id='installing-booster'>Installing Booster</h1><h2 id='supported-operating-systems'>Supported operating systems</h2>
 <p>You can develop with Booster using any of the following operating systems:</p>
