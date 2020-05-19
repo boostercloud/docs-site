@@ -891,7 +891,7 @@ with your selected project name.</p>
 <blockquote>
 <p>New read model</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell"><code>boost new:read-model PostReadModel <span class="nt">--fields</span> title:string content:string author:string <span class="nt">--projects</span> Post
+<div class="highlight"><pre class="highlight shell"><code>boost new:read-model PostReadModel <span class="nt">--fields</span> title:string content:string author:string <span class="nt">--projects</span> Post:id
 </code></pre></div>
 <p>Almost everything is set-up. We just need to provide a way to view the <code>Posts</code> of our blog. For that, we will create a <code>read model</code>.</p>
 <div class="highlight"><pre class="highlight plaintext"><code>|- &lt;your-project-name&gt;
