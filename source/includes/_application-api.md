@@ -171,23 +171,72 @@ This is the main API of your application, as it allows you to:
  - _Read_ data by **querying read models**
  - _Receive data in real time_ by **subscribing to read models** 
  
-All this is done through GraphQL, a nice query language for APIs that has useful advantages over simple REST APIs.
-If you are not familiar with GraphQL then, first of all, don't worry! _Using_ a GraphQL API is simple and straightforward.
-The hardest part of GraphQL  
-Booster creates a GraphQL API for your application. Why GraphQL and not a simple REST API?
-For many reasons, among them:
--- keep from here-----------------------
- - It is more user-friendly
- - Schema
- - Subscriptions
- - Fetch only what you want
- - etc
+All this is done through [GraphQL](https://graphql.org/), a nice query language for APIs that has useful advantages over simple REST APIs.
+
+If you are not familiar with GraphQL, then, first of all, don't worry! 
+_Using_ a GraphQL API is simple and straightforward.
+_Implementing it_ on the server side is the hardest part, as you need to define your schema, operation, resolvers, etc.
+Luckily, you can forget about that because it is already done by Booster.
  
-## Write API (commands submission)
+<aside class="notice">
+The GraphQL API is fully <strong>auto-generated</strong> based on your <em>commands</em> and <em>read models</em>
+</aside>
 
-- [ ] TODO: Improve this documentation
+### Relationship between GraphQL operations and commands and read models
+GraphQL defines three kinds of operations that you can use: _mutations_, _queries_, and _subscriptions_. 
 
-`POST https://<httpURL>/commands`
+The names are pretty meaningful, but we can say that you use a `mutation` when you want to change data, a `query` when you want to get
+data on-demand, and a `subscription` when you want to receive data at the moment it is updated.
+
+Knowing this, you can infer the relationship between those operations and your Booster components:
+
+- You _send_ a **command** using a **mutation**
+- You _read_ a **read model** using a **query**
+- You _subscribe_ to a **read model** using a **subscription** 
+
+### How to send GraphQL request
+GraphQL uses two existing protocols: 
+
+- _HTTP_ for `mutation` and `query` operations
+- _Websocket_ for `subscription` operations
+
+The reason for the Websocket protocol is that, in order for subscriptions to work, there must be a way for the server to send data
+to clients when it is changed. HTTP doesn't allow that, as it is the client the one which always initiates the request.
+ 
+This is the reason why Booster provisions two main URLs: the **httpURL** and the **websocketURL** (you can see them after
+deploying your application). You need to use the "httpURL" to send GraphQL queries and mutations, and the "websocketURL"
+to send subscriptions.
+
+Therefore:
+
+- To send a GraphQL mutation/query, you just send an HTTP request to the _httpURL_, with _method POST_, and a _JSON-encoded body_ with the mutation/query deatils.
+- To send a GraphQL subscription, you first connect to the _websocketURL_, and then send a _JSON-encoded message_ with the subscription details.
+
+Check the following section for details and examples.
+
+<aside class="notice">
+You normally don't need to deal with this low-level details. There are plenty of GraphQL clients for sending request manually
+(like <a href="https://postwoman.io/">Postwoman</a>) or libraries you can use in the client-side of your application
+(like <a href="https://www.apollographql.com/">Apollo</a>)
+</aside>
+### Sending commands
+
+The way we send a command to our Booster app is by using a GraphQL "mutation". The following GraphQL request is sending the command ChangeCart with all its required payload:
+
+URL: <httpURL>/graphql GraphQL body:
+
+mutation {
+  ChangeCart(input: {
+      cartId: "demo"
+      sku: "ABC_01"
+      quantity: 2
+  })
+}
+In case you are using an HTTP client without support for GraphQL, you can do exactly the same by sending an HTTP request with method "POST" and include a JSON body with a field named "query" with the GraphQL mutation: URL: <httpURL>/graphql Method: POST Body:
+
+{
+   "query":"mutation { ChangeCart(input: { cartId: \"demo\" sku: \"ABC_01\" quantity: 2 }) }"
+}
 
 #### Request body:
 
