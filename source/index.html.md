@@ -18,7 +18,7 @@ includes:
   - 06-read-models
   - 07-auth
   - 08-deployment
-  - 09-rest-api
+  - _application-api
   - faq
 
 search: false

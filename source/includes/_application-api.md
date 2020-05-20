@@ -1,15 +1,33 @@
-# Booster Cloud Framework REST API
+# Your application API
 
-The API for a Booster application is very simple and is fully defined by auth endpoints and the [commands](#commands-and-command-handlers-the-write-pipeline)
-and [read models](#read-models-the-read-Pipeline) names and structures.
+The API is the way the outside world interact with your system, and any server-side application needs one.
+With Booster, you don't need to worry about it: _it is created for you_ and evolves with your code _automatically_.
 
-After a successful deployment you'll see an "Outputs:" section in your terminal with several values that you need to use
-when doing requests to the API. Those values are:
+When you finish deploying your application using the `boost deploy` command, it will print useful information needed to 
+use your API. It will be shown under the "Outputs" section.
 
-- `baseURL`: This is the base URL for all your endpoints
-- `clientID`: Needed for authentication/authorization endpoints. This is only shown if there are roles defined in your app.
+```sh
+Outputs:
+<application name>.httpURL = https://<API ID>.execute-api.<region>.amazonaws.com/<environment name>
+<application name>.websocketURL = wss://<API ID>.execute-api.<region>.amazonaws.com/<environment name>
+<application name>.clientID = abcdXjk1234
+```
 
-Note that the `Content-Type` for all requests is `application/json`.
+The meaning of those values are:
+
+- **httpURL**: This is the main URL of your application. You will need it to interacting with the 
+authentication/authorization API and to send commands and read model queries.
+- **websocketURL**: This is the Websocket URL you will need to use to subscribe to your read models and receive
+them every time they are updated in real time 
+- **clientID**: This parameter is specific for the AWS provider (so you will see only if you used that provider) and is 
+needed only for the `auth/sign-up` and `auth/sign-in` endpoints.
+
+For details, see the following sections.
+
+<aside class="notice">
+Note that the <strong>Content-Type</strong> for all requests is always <code>application/json</code>
+</aside>
+
 
 ## Authentication and Authorization API
 
@@ -19,13 +37,11 @@ to use roles to restrict the access to your application, see the section [Authen
 ### Sign-up
 Register a user in your application. After a successful invocation, an email will be sent to the user's inbox
 with a confirmation link. **Users's won't be able to sign-in before they click in that link**.
-###### Endpoint
+#### Endpoint
 ```http request
-POST https://<baseURL>/auth/sign-up
+POST https://<httpURL>/auth/sign-up
 ```
-###### Request body
-> Sign-up response body
-
+#### Request body
 ```json
 {
 	"clientId": "string",
@@ -42,14 +58,14 @@ Parameter | Description
 _clientId_ | The application client Id that you got as an output when the application was deployed.
 _username_ | The username of the user you want to register. It **must be an email**.
 _password_ | The password the user will use to later login into your application and get access tokens.
-_userAttributes_ | Here you can specify the attributes of your user. These are:
-* _roles_  An array of roles this user will have. You can only specify here roles with the property `allowSelfSignUp = true`
+_userAttributes_ | Here you can specify the attributes of your user. These are: <br/> - _roles_  An array of roles this user will have. You can only specify here roles with the property `allowSelfSignUp = true`
 
-###### Response
+
+#### Response
 An empty body
 
-###### Errors
-> Sign-up error response body example: Not specifiying an email as username.
+#### Errors
+> Sign-up error response body example: Not specifying an email as username.
 
 ```json
 {
@@ -58,19 +74,17 @@ An empty body
 }
 ```
 
-You will get a HTTP status code different from 2XX and a body with a message telling you the reason of the error.
+You will get an HTTP status code different from 2XX and a body with a message telling you the reason of the error.
 
 ### Sign-in
 Allows your users to get tokens to be able to make request to restricted endpoints.
 Remember that before a user can be signed in into your application, **its email must be confirmed**
 
-###### Endpoint
+#### Endpoint
 ```http request
-POST https://<baseURL>/auth/sign-in
+POST https://<httpURL>/auth/sign-in
 ```
-###### Request body
-> Sign-in request body
-
+#### Request body
 ```json
 {
 	"clientId":"string",
@@ -85,9 +99,7 @@ _clientId_ | The application client Id that you got as an output when the applic
 _username_ | The username of the user you want to sign in. It must be previously signed up
 _password_ | The password used to sign up the user.
 
-###### Response
-> Sign-in response body
-
+#### Response
 ```json
 {
     "accessToken": "string",
@@ -121,7 +133,7 @@ Finalizes the user session by cancelling their tokens.
 
 ###### Endpoint
 ```http request
-POST https://<baseURL>/auth/sign-out
+POST https://<httpURL>/auth/sign-out
 ```
 ###### Request body
 > Sign-out request body
@@ -149,11 +161,33 @@ An empty body
 
 You will get a HTTP status code different from 2XX and a body with a message telling you the reason of the error.
 
+ 
+
+## Commands and ReadModels API
+ 
+This is the main API of your application, as it allows you to:
+
+ - _Modify_ data by **sending commands**
+ - _Read_ data by **querying read models**
+ - _Receive data in real time_ by **subscribing to read models** 
+ 
+All this is done through GraphQL, a nice query language for APIs that has useful advantages over simple REST APIs.
+If you are not familiar with GraphQL then, first of all, don't worry! _Using_ a GraphQL API is simple and straightforward.
+The hardest part of GraphQL  
+Booster creates a GraphQL API for your application. Why GraphQL and not a simple REST API?
+For many reasons, among them:
+-- keep from here-----------------------
+ - It is more user-friendly
+ - Schema
+ - Subscriptions
+ - Fetch only what you want
+ - etc
+ 
 ## Write API (commands submission)
 
 - [ ] TODO: Improve this documentation
 
-`POST https://<baseURL>/commands`
+`POST https://<httpURL>/commands`
 
 #### Request body:
 
@@ -175,16 +209,16 @@ You will get a HTTP status code different from 2XX and a body with a message tel
 
 ### Get a list
 
-`GET https://<baseURL>/readmodels/<read model class name>`
+`GET https://<httpURL>/readmodels/<read model class name>`
 
 Example:
 
-`GET https://<baseURL>/readmodels/CartReadModel`
+`GET https://<httpURL>/readmodels/CartReadModel`
 
 ### Get a specific read model
 
-`GET https://<baseURL>/readmodels/<read model class name>/<read model ID>`
+`GET https://<httpURL>/readmodels/<read model class name>/<read model ID>`
 
 Example:
 
-`GET https://<baseURL>/readmodels/CartReadModel/42`
+`GET https://<httpURL>/readmodels/CartReadModel/42`

@@ -180,6 +180,8 @@ to a GraphQL query or subscription.
 Just write your Booster app as you would do normally, and enjoy a GraphQL
 API for free, with its schema, operations, and everything.
 
+Check the [API documentation](#your-application-api) to learn more.
+
 ## Fasten your seat belts
 
 This is a simplified view of Booster. It supports many other features
