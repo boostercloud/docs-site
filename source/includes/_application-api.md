@@ -209,7 +209,7 @@ to send subscriptions.
 
 Therefore:
 
-- To send a GraphQL mutation/query, you just send an HTTP request to the _httpURL_, with _method POST_, and a _JSON-encoded body_ with the mutation/query deatils.
+- To send a GraphQL mutation/query, you send an HTTP request to _"<httpURL>/graphql"_, with _method POST_, and a _JSON-encoded body_ with the mutation/query deatils.
 - To send a GraphQL subscription, you first connect to the _websocketURL_, and then send a _JSON-encoded message_ with the subscription details.
 
 Check the following section for details and examples.
@@ -219,12 +219,41 @@ You normally don't need to deal with this low-level details. There are plenty of
 (like <a href="https://postwoman.io/">Postwoman</a>) or libraries you can use in the client-side of your application
 (like <a href="https://www.apollographql.com/">Apollo</a>)
 </aside>
+
 ### Sending commands
 
-The way we send a command to our Booster app is by using a GraphQL "mutation". The following GraphQL request is sending the command ChangeCart with all its required payload:
+As mentioned in the previous section, we need to use a "mutation" to send a command. The structure of a mutation (the body
+of the request) is the following:
 
-URL: <httpURL>/graphql GraphQL body:
+```graphql
+mutation {
+  command_name(input: {
+    input_field_list
+  })
+}
+```
 
+Where:
+
+- _command_name_ is the name of the class corresponding to the command you want to send
+- _field_list_ is list of pairs in the form of `fieldName: fieldValue` containing the data of your command. The field names
+correspond to the names of the properties you defined in the command class. 
+
+Check the examples where we send a command named "ChangeCart" that will add/remove an item to/from a shopping cart. The 
+command requires the ID of the cart (`cartId`), the item identifier (`sku`) and the quantity of units we are adding/removing
+(`quantity`).
+
+<aside class="notice">
+Remember that in case you want to send a command that is restricted to a specific set of roles, you must send the <strong>access
+token</strong> in the <strong>"Authorization"</strong> header: <em>"Authorization: Bearer &lt;token retrieved upon sign-in&gt;"</em>
+</aside>
+
+> Using a GraphQL-specific client:
+
+```
+URL: "<httpURL>/graphql"
+```
+```graphql
 mutation {
   ChangeCart(input: {
       cartId: "demo"
@@ -232,42 +261,71 @@ mutation {
       quantity: 2
   })
 }
-In case you are using an HTTP client without support for GraphQL, you can do exactly the same by sending an HTTP request with method "POST" and include a JSON body with a field named "query" with the GraphQL mutation: URL: <httpURL>/graphql Method: POST Body:
+```
 
+> Equivalent bare HTTP request:
+
+```
+URL: "<httpURL>/graphql"
+METHOD: "POST"
+```
+```json
 {
    "query":"mutation { ChangeCart(input: { cartId: \"demo\" sku: \"ABC_01\" quantity: 2 }) }"
 }
+```
 
-#### Request body:
+### Reading read models
 
-```json
-{
-  "typeName": "ChangeCartItem",
-  "version": 1,
-  "value": {
-    "cartId": "demo",
-    "sku": "ABC-10",
-    "quantity": 1
+To read a specific read model, we need to use a "query" operation. The structure of the "query" (the body
+of the request) is the following:
+
+```graphql
+query {
+  read_model_name(id: "<id of the read model>") {
+    selection_field_list
   }
 }
 ```
 
-## Read API (retrieve a read model)
+Where:
 
-- [ ] Improve this documentation
+- _read_model_name_ is the name of the class corresponding to the read model you want to retrieve.
+- _&lt;id of the read model&gt;_ is the ID of the specific read model instance you are interested in.
+- _selection_field_list_ is a list with the names of the specific read model fields you want to get as response.
 
-### Get a list
+Check the examples where we send a query to read a read model named "CartReadModel" whose ID is "demo" and we get back as
+response its `id` and the list of cart `items`
 
-`GET https://<httpURL>/readmodels/<read model class name>`
+<aside class="notice">
+Remember that in case you want to query a read model that is restricted to a specific set of roles, you must send the <strong>access
+token</strong> in the <strong>"Authorization"</strong> header: <em>"Authorization: Bearer &lt;token retrieved upon sign-in&gt;"</em>
+</aside>
 
-Example:
+> Using a GraphQL-specific client:
 
-`GET https://<httpURL>/readmodels/CartReadModel`
+```
+URL: "<httpURL>/graphql"
+```
+```graphql
+query {
+  CartReadModel(id: "demo") {
+      id
+      items
+  }
+}
+```
 
-### Get a specific read model
+> Equivalent bare HTTP request:
 
-`GET https://<httpURL>/readmodels/<read model class name>/<read model ID>`
+```
+URL: "<httpURL>/graphql"
+METHOD: "POST"
+```
+```json
+{
+   "query":"query { CartReadModel(id: \"demo\") { id items } }"
+}
+```
 
-Example:
-
-`GET https://<httpURL>/readmodels/CartReadModel/42`
+### Reading read models data
