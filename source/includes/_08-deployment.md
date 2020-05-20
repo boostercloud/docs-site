@@ -32,6 +32,16 @@ It will take a while, but you should have your project deployed to your cloud pr
 
 If you make changes to your code, you can run `boost deploy` again to update your project in the cloud.
 
+### Introducing booster full-stack applications
+
+Booster now uploads your frontend application to the cloud too! Just follow these steps:
+
+- Create a `public` directory in the root of your booster project
+- Put your frontend application inside
+
+And that's it! If you run `boost deploy`, both backend and frontend will be deployed and
+you should see a CloudFront URL in your console's output
+
 ## Deleting your cloud stack
 
 If you want to delete the Booster application that has been deployed to the cloud, you can run:
