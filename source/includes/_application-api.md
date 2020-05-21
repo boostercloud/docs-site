@@ -17,7 +17,7 @@ The meaning of those values are:
 
 - **httpURL**: This is the main URL of your application. You will need it to interacting with the 
 authentication/authorization API and to send commands and read model queries.
-- **websocketURL**: This is the Websocket URL you will need to use to subscribe to your read models and receive
+- **websocketURL**: This is the web socket URL you will need to use to subscribe to your read models and receive
 them every time they are updated in real time 
 - **clientID**: This parameter is specific for the AWS provider (so you will see only if you used that provider) and is 
 needed only for the `auth/sign-up` and `auth/sign-in` endpoints.
@@ -137,6 +137,7 @@ POST https://<httpURL>/auth/sign-out
 ```
 ###### Request body
 > Sign-out request body
+
 ```json
 {
 	"accessToken":"string"
@@ -198,9 +199,9 @@ Knowing this, you can infer the relationship between those operations and your B
 GraphQL uses two existing protocols: 
 
 - _HTTP_ for `mutation` and `query` operations
-- _Websocket_ for `subscription` operations
+- _WebSocket_ for `subscription` operations
 
-The reason for the Websocket protocol is that, in order for subscriptions to work, there must be a way for the server to send data
+The reason for the WebSocket protocol is that, in order for subscriptions to work, there must be a way for the server to send data
 to clients when it is changed. HTTP doesn't allow that, as it is the client the one which always initiates the request.
  
 This is the reason why Booster provisions two main URLs: the **httpURL** and the **websocketURL** (you can see them after
@@ -256,9 +257,9 @@ URL: "<httpURL>/graphql"
 ```graphql
 mutation {
   ChangeCart(input: {
-      cartId: "demo"
-      sku: "ABC_01"
-      quantity: 2
+    cartId: "demo"
+    sku: "ABC_01"
+    quantity: 2
   })
 }
 ```
@@ -271,7 +272,16 @@ METHOD: "POST"
 ```
 ```json
 {
-   "query":"mutation { ChangeCart(input: { cartId: \"demo\" sku: \"ABC_01\" quantity: 2 }) }"
+  "query":"mutation { ChangeCart(input: { cartId: \"demo\" sku: \"ABC_01\" quantity: 2 }) }"
+}
+```
+
+> Response:
+```json
+{
+  "data": {
+    "ChangeCart": true
+  }
 }
 ```
 
@@ -310,8 +320,8 @@ URL: "<httpURL>/graphql"
 ```graphql
 query {
   CartReadModel(id: "demo") {
-      id
-      items
+    id
+    items
   }
 }
 ```
@@ -324,8 +334,120 @@ METHOD: "POST"
 ```
 ```json
 {
-   "query":"query { CartReadModel(id: \"demo\") { id items } }"
+  "query":"query { CartReadModel(id: \"demo\") { id items } }"
 }
 ```
 
-### Reading read models data
+> Response
+
+```json
+{
+  "data": {
+    "CartReadModel": {
+      "id": "demo",
+      "items": [
+        {
+          "sku": "ABC_01",
+          "quantity": 2
+        }
+      ]
+    }
+  }
+}
+```
+
+### Subscribing to read models
+
+To subscribe to a specific read model, we need to use a "subscription" operation, and it must be _sent through the **websocketURL**_.
+
+
+Before sending any subscription, you need to _connect_ to the web socket to open the two-way communication channel. This connection
+is done differently depending on the client/library you use to manage web sockets. In this section, we will show examples 
+using the ["wscat"](https://github.com/websockets/wscat) command line program. 
+
+Once you have connected successfully, you can use this channel to:
+
+- Send the subscription messages
+- Listen for messages sent by the server with data corresponding to your active subscriptions. 
+
+The structure of the "subscription" (the body of the message) is exactly the same as the "query" operation:
+
+```graphql
+subscription {
+  read_model_name(id: "<id of the read model>") {
+    selection_field_list
+  }
+}
+```
+
+Where:
+
+- _read_model_name_ is the name of the class corresponding to the read model you want to subscribe to.
+- _&lt;id of the read model&gt;_ is the ID of the specific read model instance you are interested in.
+- _selection_field_list_ is a list with the names of the specific read model fields you want to get when data is sent back to you.
+
+In the following examples we use ["wscat"](https://github.com/websockets/wscat) to connect to the web socket and send a subscription
+to the read model `CartReadModel` with ID "demo"
+
+<aside class="notice">
+Remember that in case you want to subscribe to a read model that is restricted to a specific set of roles, you must send, 
+in the <em>connection operation</em>, the <strong>access token</strong> in the <strong>"Authorization"</strong> header: 
+<em>"Authorization: Bearer &lt;token retrieved upon sign-in&gt;"</em>
+</aside>
+
+> Connecting to the web socket:
+
+```sh
+ wscat -c <websocketURL>
+```
+
+> Sending a message with the subscription
+
+```json
+{"query": "subscription { CartReadModel(id:\"demo\") { id items } }" }
+```
+
+After a successful subscription, you won't receive anything in return. Now, every time the read model you subscribed to
+is modified, a new incoming message will appear in the socket with the updated version of the read model. This message
+will have exactly the same format as if you were done a query with the same parameters.
+
+Following the previous example, we now send a command (using a "mutation" operation) that adds
+a new item with sku "ABC_02" to the `CartReadModel`. After it has been added, we receive the updated version of the read model through the
+socket.
+
+> Send the Command
+
+```
+URL: "<httpURL>/graphql"
+```
+```graphql
+mutation {
+  ChangeCart(input: {
+    cartId: "demo"
+    sku: "ABC_02"
+    quantity: 3
+  })
+}
+```
+
+> The following message appears in the socket
+
+```json
+{
+  "data": {
+    "CartReadModel": {
+      "id": "demo",
+      "items": [
+        {
+          "sku": "ABC_01",
+          "quantity": 2
+        },
+        {
+          "sku": "ABC_02",
+          "quantity": 3
+        }
+      ]
+    }
+  }
+}
+```
