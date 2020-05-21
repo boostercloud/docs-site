@@ -16,9 +16,9 @@ Booster.configure('pre-production', (config: BoosterConfig): void => {
   config.provider = Provider
 })
 ```
-You configure your Booster application by calling the `Booster.configure()` method.
-Typically, this call is done in a file placed inside "src/config" folder. If you have
-used the `boost new:project` generator, you will already have this file there.
+You configure your application by calling to the `Booster.configure()` method. 
+There are no restrictions about where you should do this call, but the convention is to have your configuration files in the `src/config` folder.
+If you used the project generator (`boost new:project <project-name>`), this is where the config files are by default.
 
 The following is the list of the fields you can configure:
 
@@ -77,5 +77,4 @@ configured.
 
 The only thing you need to do deploy a whole new completely-independent copy of your application is to use 
 a different name.
-
 
