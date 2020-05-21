@@ -28,7 +28,7 @@ are certain restrictions regarding the characters you can use: all of them must 
 lower-cased and can't contain spaces.
 Two apps with different names are completely independent.
 - **provider:** This field contains the provider library instance that Booster will use when deploying```
-or running your application. So far, there is only one provider created for Booster,
+or running your application. So far, there is only one provider supported in Booster yet,
 `@boostercloud/framework-provider-aws`, and it is probably the one you have already
 set if you used the generator to create your project. There will be more providers,
 like one that allows running your Booster app locally.
