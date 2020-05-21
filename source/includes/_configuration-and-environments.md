@@ -29,12 +29,14 @@ are certain restrictions regarding the characters you can use: all of them must 
 lower-cased and can't contain spaces.
 Two apps with different names are completely independent.
 - **provider:** This field contains the provider library instance that Booster will use when deploying```
-or running your application. So far, there is only one provider created for Booster,
+or running your application. So far, there is only one provider supported in Booster yet,
 `@boostercloud/framework-provider-aws`, and it is probably the one you have already
 set if you used the generator to create your project. There will be more providers,
 like one that allows running your Booster app locally.
 
 ## Environments
+
+You can configure multiple environments calling to the `Booster.configure` function several times using different environment names:
 
 ```typescript
 import { Booster } from '@boostercloud/framework-core'
@@ -65,9 +67,8 @@ Booster.configure('pepe', (config: BoosterConfig): void => {
   config.provider = AWSProvider
 })
 ```
-When you configure your app by calling `Booster.configure`, the first parameter you need to pass is the
-**environment name**, and it identifies a specific set of configuration parameters. When you deploy your 
-application, you need to specify which environment you want to deploy.
+The environment name will be required by any command from the Booster CLI that depends on the provider. 
+For instance, when you deploy your application, you'll need to specify which environment you want to deploy.
 
 This way, you can have different configuration depending on your needs. For example, your 'fruit-store' app
 can have three environments: 'dev', 'stage', and 'prod', each of them with different app names
