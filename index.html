@@ -295,6 +295,17 @@
               </ul>
           </li>
           <li>
+            <a href="#configuration-and-environments" class="toc-h1 toc-link" data-title="Configuration and environments">Configuration and environments</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#booster-configuration" class="toc-h2 toc-link" data-title="Booster configuration">Booster configuration</a>
+                  </li>
+                  <li>
+                    <a href="#environments" class="toc-h2 toc-link" data-title="Environments">Environments</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#architecture-and-core-concepts" class="toc-h1 toc-link" data-title="Architecture and core concepts">Architecture and core concepts</a>
           </li>
           <li>
@@ -1093,6 +1104,85 @@ with your selected project name.</p>
 
 <aside class="success">
 Congratulations! you've built a serverless backend in less than 10 minutes. We hope you have enjoyed discovering the magic of Booster Framework, please keep reading if you want to know more about it.
+</aside>
+<h1 id='configuration-and-environments'>Configuration and environments</h1>
+<p>One of the goals of booster is to avoid configuration parameters as much as
+possible, inferring everything automatically from your code. However, there
+are some aspects that can&#39;t be inferred (like the application name), or it
+is useful to change them under certain circumstances, especially when using
+different <a href="#environments">environments</a></p>
+<h2 id='booster-configuration'>Booster configuration</h2><div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Booster</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@boostercloud/framework-core</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BoosterConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@boostercloud/framework-types</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@boostercloud/framework-provider-aws</span><span class="dl">'</span>
+
+<span class="nx">Booster</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="dl">'</span><span class="s1">pre-production</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">config</span><span class="p">:</span> <span class="nx">BoosterConfig</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">appName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">my-app-name</span><span class="dl">'</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">provider</span> <span class="o">=</span> <span class="nx">Provider</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>You configure your application by doing a call to the <code>Booster.configure()</code> method. 
+There are no restrictions about where you should do this call, but the convention is to do it in your configuration files 
+located in the <code>src/config</code> folder. If you used the project generator (<code>boost new:project &lt;project-name&gt;</code>), this is 
+where the config files are by default.</p>
+
+<p>The following is the list of the fields you can configure:</p>
+
+<ul>
+<li><strong>appName:</strong> This is the name that identifies your application. It will be used
+for many things, such us prefixing the resources created by the provider. There
+are certain restrictions regarding the characters you can use: all of them must be
+lower-cased and can&#39;t contain spaces.
+Two apps with different names are completely independent.</li>
+<li><strong>provider:</strong> This field contains the provider library instance that Booster will use when deploying
+or running your application. So far, there is only one provider supported in Booster yet,
+<code>@boostercloud/framework-provider-aws</code>, and it is probably the one you have already
+set if you used the generator to create your project. There will be more providers,
+like one that allows running your Booster app locally.</li>
+</ul>
+<h2 id='environments'>Environments</h2>
+<p>You can configure multiple environments calling to the <code>Booster.configure</code> function several times using different environment names:</p>
+<div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Booster</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@boostercloud/framework-core</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BoosterConfig</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@boostercloud/framework-types</span><span class="dl">'</span>
+<span class="c1">// A provider that deploys your app to AWS:</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AWSProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@boostercloud/framework-provider-aws</span><span class="dl">'</span>
+<span class="c1">// A provider that deploys your app locally:</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">LocalProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@boostercloud/framework-provider-local</span><span class="dl">'</span> 
+
+<span class="nx">Booster</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="dl">'</span><span class="s1">dev</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">config</span><span class="p">:</span> <span class="nx">BoosterConfig</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">appName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">fruit-store-dev</span><span class="dl">'</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">provider</span> <span class="o">=</span> <span class="nx">LocalProvider</span>
+<span class="p">})</span>
+
+<span class="nx">Booster</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="dl">'</span><span class="s1">stage</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">config</span><span class="p">:</span> <span class="nx">BoosterConfig</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">appName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">fruit-store-stage</span><span class="dl">'</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">provider</span> <span class="o">=</span> <span class="nx">AWSProvider</span>
+<span class="p">})</span>
+
+<span class="nx">Booster</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="dl">'</span><span class="s1">prod</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">config</span><span class="p">:</span> <span class="nx">BoosterConfig</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">appName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">fruit-store-prod</span><span class="dl">'</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">provider</span> <span class="o">=</span> <span class="nx">AWSProvider</span>
+<span class="p">})</span>
+
+<span class="c1">// This other configuration could be in another file that Pepe doesn't commit</span>
+<span class="nx">Booster</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="dl">'</span><span class="s1">pepe</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">config</span><span class="p">:</span> <span class="nx">BoosterConfig</span><span class="p">):</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">appName</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">pepe-fruit-store</span><span class="dl">'</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">provider</span> <span class="o">=</span> <span class="nx">AWSProvider</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>The environment name will be required by any command from the Booster CLI that depends on the provider. 
+For instance, when you deploy your application, you&#39;ll need to specify which environment you want to deploy.</p>
+
+<p>This way, you can have different configurations depending on your needs. </p>
+
+<p>For example, your <em>&#39;fruit-store&#39;</em> app can have three environments: <code>&#39;dev&#39;</code>, <code>&#39;stage&#39;</code>, and <code>&#39;prod&#39;</code>, each of them with
+different app names or providers. 
+A developer named &quot;Pepe&quot; could have another environment with a different app name so that he can deploy the
+entire application to a production-like environment and test it. Check the example to see how this app would be
+configured.</p>
+
+<aside class="notice">
+The only thing you need to do to deploy a whole new completely-independent copy of your application is to use 
+a different name.
 </aside>
 <h1 id='architecture-and-core-concepts'>Architecture and core concepts</h1>
 <p>Booster’s architecture is heavily inspired by the <a href="https://www.martinfowler.com/bliki/CQRS.html">CQRS</a> and <a href="https://martinfowler.com/eaaDev/EventSourcing.html">Event Sourcing</a> patterns.
