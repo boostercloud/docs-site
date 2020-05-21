@@ -35,6 +35,8 @@ like one that allows running your Booster app locally.
 
 ## Environments
 
+You can configure multiple environments calling to the `Booster.configure` function several times using different environment names:
+
 ```typescript
 import { Booster } from '@boostercloud/framework-core'
 import { BoosterConfig } from '@boostercloud/framework-types'
