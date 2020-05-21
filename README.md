@@ -1,3 +1,5 @@
+**Deprecation Warning:** We're in the process of moving the documentation markdown sources back to the main Booster repository. Consider this before contributing to this documentation.
+
 # Booster Docs
 
 Welcome to the source code of the Booster documentation. If you want to improve the Booster docs, you're in the right place! If you just want
