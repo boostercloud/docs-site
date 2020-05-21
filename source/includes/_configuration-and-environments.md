@@ -27,7 +27,7 @@ for many things, such us prefixing the resources created by the provider. There
 are certain restrictions regarding the characters you can use: all of them must be
 lower-cased and can't contain spaces.
 Two apps with different names are completely independent.
-- **provider:** This field contains the provider you will be using when deploying
+- **provider:** This field contains the provider library instance that Booster will use when deploying```
 or running your application. So far, there is only one provider created for Booster,
 `@boostercloud/framework-provider-aws`, and it is probably the one you have already
 set if you used the generator to create your project. There will be more providers,
@@ -77,4 +77,3 @@ configured.
 
 The only thing you need to do deploy a whole new completely-independent copy of your application is to use 
 a different name.
-
