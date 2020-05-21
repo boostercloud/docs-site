@@ -28,7 +28,7 @@ for many things, such us prefixing the resources created by the provider. There
 are certain restrictions regarding the characters you can use: all of them must be
 lower-cased and can't contain spaces.
 Two apps with different names are completely independent.
-- **provider:** This field contains the provider library instance that Booster will use when deploying```
+- **provider:** This field contains the provider library instance that Booster will use when deploying
 or running your application. So far, there is only one provider supported in Booster yet,
 `@boostercloud/framework-provider-aws`, and it is probably the one you have already
 set if you used the generator to create your project. There will be more providers,
@@ -47,7 +47,7 @@ import { AWSProvider } from '@boostercloud/framework-provider-aws'
 import { LocalProvider } from '@boostercloud/framework-provider-local' 
 
 Booster.configure('dev', (config: BoosterConfig): void => {
-  config.appName = 'fruit-store-qa'
+  config.appName = 'fruit-store-dev'
   config.provider = LocalProvider
 })
 
@@ -70,12 +70,15 @@ Booster.configure('pepe', (config: BoosterConfig): void => {
 The environment name will be required by any command from the Booster CLI that depends on the provider. 
 For instance, when you deploy your application, you'll need to specify which environment you want to deploy.
 
-This way, you can have different configuration depending on your needs. For example, your 'fruit-store' app
-can have three environments: 'dev', 'stage', and 'prod', each of them with different app names
-or providers. 
+This way, you can have different configurations depending on your needs. 
+
+For example, your _'fruit-store'_ app can have three environments: `'dev'`, `'stage'`, and `'prod'`, each of them with
+different app names or providers. 
 A developer named "Pepe" could have another environment with a different app name so that he can deploy the
 entire application to a production-like environment and test it. Check the example to see how this app would be
 configured.
 
-The only thing you need to do deploy a whole new completely-independent copy of your application is to use 
+<aside class="notice">
+The only thing you need to do to deploy a whole new completely-independent copy of your application is to use 
 a different name.
+</aside>
