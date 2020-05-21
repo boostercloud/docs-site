@@ -66,9 +66,8 @@ Booster.configure('pepe', (config: BoosterConfig): void => {
   config.provider = AWSProvider
 })
 ```
-When you configure your app by calling `Booster.configure`, the first parameter you need to pass is the
-**environment name**, and it identifies a specific set of configuration parameters. When you deploy your 
-application, you need to specify which environment you want to deploy.
+The environment name will be required by any command from the Booster CLI that depends on the provider. 
+For instance, when you deploy your application, you'll need to specify which environment you want to deploy.
 
 This way, you can have different configuration depending on your needs. For example, your 'fruit-store' app
 can have three environments: 'dev', 'stage', and 'prod', each of them with different app names
