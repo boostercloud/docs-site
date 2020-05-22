@@ -171,7 +171,7 @@ This is the main API of your application, as it allows you to:
  - _Read_ data by **querying read models**
  - _Receive data in real time_ by **subscribing to read models** 
  
-All this is done through [GraphQL](https://graphql.org/), a nice query language for APIs that has useful advantages over simple REST APIs.
+All this is done through [GraphQL](https://graphql.org/), a query language for APIs that has useful advantages over simple REST APIs.
 
 If you are not familiar with GraphQL, then, first of all, don't worry! 
 _Using_ a GraphQL API is simple and straightforward.
