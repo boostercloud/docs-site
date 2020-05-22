@@ -95,7 +95,7 @@ POST https://<httpURL>/auth/sign-in
 Parameter | Description
 --------- | -----------
 _clientId_ | The application client Id that you got as an output when the application was deployed.
-_username_ | The username of the user you want to sign in. It must be previously signed up
+_username_ | The username of the user you want to sign in. They must have previously signed up
 _password_ | The password used to sign up the user.
 
 #### Response
