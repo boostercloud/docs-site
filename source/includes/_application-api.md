@@ -1,7 +1,6 @@
 # Your application API
 
-The API is the way the outside world interact with your system, and any server-side application needs one.
-With Booster, you don't need to worry about it: _it is created for you_ and evolves with your code _automatically_.
+The API is generated automatically when you deploy your application, and it changes when needed, no additional steps required on your side.
 
 When you finish deploying your application using the `boost deploy` command, it will print useful information needed to 
 use your API. It will be shown under the "Outputs" section.
