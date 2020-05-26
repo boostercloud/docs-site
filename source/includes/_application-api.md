@@ -14,7 +14,7 @@ Outputs:
 
 The meaning of those values are:
 
-- **httpURL**: This is the main URL of your application. You will need it to interacting with the 
+- **httpURL**: This is the base HTTP URL of your application. You will need it to interacting with the 
 authentication/authorization API and to send commands and read model queries.
 - **websocketURL**: This is the web socket URL you will need to use to subscribe to your read models and receive
 them every time they are updated in real time 
