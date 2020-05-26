@@ -32,15 +32,16 @@ It will take a while, but you should have your project deployed to your cloud pr
 
 If you make changes to your code, you can run `boost deploy` again to update your project in the cloud.
 
-### Introducing booster full-stack applications
+### Deployment of static pages and assets
 
-Booster now uploads your frontend application to the cloud too! Just follow these steps:
+Booster can deploy your static assets to the cloud too. To do so, follow the next steps:
 
 - Create a `public` directory in the root of your booster project
 - Put your frontend application inside
 
-And that's it! If you run `boost deploy`, both backend and frontend will be deployed and
-you should see a CloudFront URL in your console's output
+And that's it! If you run `boost deploy`, both backend and frontend will be deployed and distributed via CDN. You'll find the public URL in your console after deploy finishes.
+
+> Note: In the current version, Booster expects that your application builds all its static assets in the `public` folder, and that's the folder that will be published as the webroot. In future versions, this folder will be configurable.
 
 ## Deleting your cloud stack
 
