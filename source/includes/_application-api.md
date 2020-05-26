@@ -77,7 +77,7 @@ You will get an HTTP status code different from 2XX and a body with a message te
 
 ### Sign-in
 Allows your users to get tokens to be able to make request to restricted endpoints.
-Remember that before a user can be signed in into your application, **its email must be confirmed**
+Remember that before a user can be signed in into your application, **their email must be confirmed**
 
 #### Endpoint
 ```http request
