@@ -348,16 +348,13 @@
               </ul>
           </li>
           <li>
-            <a href="#booster-cloud-framework-rest-api" class="toc-h1 toc-link" data-title="Booster Cloud Framework REST API">Booster Cloud Framework REST API</a>
+            <a href="#your-application-api" class="toc-h1 toc-link" data-title="Your application API">Your application API</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#authentication-and-authorization-api" class="toc-h2 toc-link" data-title="Authentication and Authorization API">Authentication and Authorization API</a>
                   </li>
                   <li>
-                    <a href="#write-api-commands-submission" class="toc-h2 toc-link" data-title="Write API (commands submission)">Write API (commands submission)</a>
-                  </li>
-                  <li>
-                    <a href="#read-api-retrieve-a-read-model" class="toc-h2 toc-link" data-title="Read API (retrieve a read model)">Read API (retrieve a read model)</a>
+                    <a href="#commands-and-readmodels-api" class="toc-h2 toc-link" data-title="Commands and ReadModels API">Commands and ReadModels API</a>
                   </li>
               </ul>
           </li>
@@ -528,6 +525,8 @@ to a GraphQL query or subscription.</p>
 
 <p>Just write your Booster app as you would do normally, and enjoy a GraphQL
 API for free, with its schema, operations, and everything.</p>
+
+<p>Check the <a href="#your-application-api">API documentation</a> to learn more.</p>
 <h2 id='fasten-your-seat-belts'>Fasten your seat belts</h2>
 <p>This is a simplified view of Booster. It supports many other features
 that will definitely speed-up your development process. Among them:</p>
@@ -1451,7 +1450,7 @@ The latter has this attribute set to <code>true</code>, which means that any use
 <p>If your Booster application has roles defined, an authentication API will be provisioned. It will allow your users to gain
 access to your resources.</p>
 
-<p>This API consists of three endpoints (<a href="#booster-cloud-framework-rest-api">see the API documentation</a>):</p>
+<p>This API consists of three endpoints (<a href="#authentication-and-authorization-api">see the API documentation</a>):</p>
 
 <ul>
 <li><code>/auth/sign-up</code>: Users can use this endpoint to register in your application and get some roles assigned to them.
@@ -1507,34 +1506,43 @@ It's recomended to use IAM user keys and avoiding your root access keys. If you 
 <aside class="warning">
 <b>Note</b>: This will delete everything in your stack, including databases. This action is <b>not</b> reversible!
 </aside>
-<h1 id='booster-cloud-framework-rest-api'>Booster Cloud Framework REST API</h1>
-<p>The API for a Booster application is very simple and is fully defined by auth endpoints and the <a href="#commands-and-command-handlers-the-write-pipeline">commands</a>
-and <a href="#read-models-the-read-Pipeline">read models</a> names and structures.</p>
+<h1 id='your-application-api'>Your application API</h1>
+<p>The API is generated automatically when you deploy your application, and it changes when needed, no additional steps required on your side.</p>
 
-<p>After a successful deployment you&#39;ll see an &quot;Outputs:&quot; section in your terminal with several values that you need to use
-when doing requests to the API. Those values are:</p>
+<p>When you finish deploying your application using the <code>boost deploy</code> command, it will print useful information needed to 
+use your API. It will be shown under the &quot;Outputs&quot; section.</p>
+<div class="highlight"><pre class="highlight sh tab-shell"><code>Outputs:
+&lt;application name&gt;.httpURL <span class="o">=</span> https://&lt;API ID&gt;.execute-api.&lt;region&gt;.amazonaws.com/&lt;environment name&gt;
+&lt;application name&gt;.websocketURL <span class="o">=</span> wss://&lt;API ID&gt;.execute-api.&lt;region&gt;.amazonaws.com/&lt;environment name&gt;
+&lt;application name&gt;.clientID <span class="o">=</span> abcdXjk1234
+</code></pre></div>
+<p>The meaning of those values are:</p>
 
 <ul>
-<li><code>baseURL</code>: This is the base URL for all your endpoints</li>
-<li><code>clientID</code>: Needed for authentication/authorization endpoints. This is only shown if there are roles defined in your app.</li>
+<li><strong>httpURL</strong>: This is the base HTTP URL of your application. You will need it to interacting with the 
+authentication/authorization API and to send commands and read model queries.</li>
+<li><strong>websocketURL</strong>: This is the web socket URL you will need to use to subscribe to your read models and receive
+them every time they are updated in real time </li>
+<li><strong>clientID</strong>: This parameter is specific for the AWS provider (so you will see only if you used that provider) and is 
+needed only for the <code>auth/sign-up</code> and <code>auth/sign-in</code> endpoints.</li>
 </ul>
 
-<p>Note that the <code>Content-Type</code> for all requests is <code>application/json</code>.</p>
+<p>For details, see the following sections.</p>
+
+<aside class="notice">
+Note that the <strong>Content-Type</strong> for all requests is always <code>application/json</code>
+</aside>
 <h2 id='authentication-and-authorization-api'>Authentication and Authorization API</h2>
 <p>The following endpoints are provisioned if your application have at least one role defined. For more information about how
 to use roles to restrict the access to your application, see the section <a href="#authentication-and-authorization">Authentication and Authorization</a>.</p>
 <h3 id='sign-up'>Sign-up</h3>
 <p>Register a user in your application. After a successful invocation, an email will be sent to the user&#39;s inbox
 with a confirmation link. <strong>Users&#39;s won&#39;t be able to sign-in before they click in that link</strong>.</p>
-<h6 id='endpoint'>Endpoint</h6>
+<h4 id='endpoint'>Endpoint</h4>
 <p><code>http request
-POST https://&lt;baseURL&gt;/auth/sign-up
+POST https://&lt;httpURL&gt;/auth/sign-up
 </code></p>
-<h6 id='request-body'>Request body</h6>
-<blockquote>
-<p>Sign-up response body</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h4 id='request-body'>Request body</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1563,37 +1571,29 @@ POST https://&lt;baseURL&gt;/auth/sign-up
 </tr>
 <tr>
 <td><em>userAttributes</em></td>
-<td>Here you can specify the attributes of your user. These are:</td>
+<td>Here you can specify the attributes of your user. These are: <br/> - <em>roles</em>  An array of roles this user will have. You can only specify here roles with the property <code>allowSelfSignUp = true</code></td>
 </tr>
 </tbody></table>
-
-<ul>
-<li><em>roles</em>  An array of roles this user will have. You can only specify here roles with the property <code>allowSelfSignUp = true</code></li>
-</ul>
-<h6 id='response'>Response</h6>
+<h4 id='response'>Response</h4>
 <p>An empty body</p>
-<h6 id='errors'>Errors</h6>
+<h4 id='errors'>Errors</h4>
 <blockquote>
-<p>Sign-up error response body example: Not specifiying an email as username.</p>
+<p>Sign-up error response body example: Not specifying an email as username.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"__type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"InvalidParameterException"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username should be an email."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>You will get a HTTP status code different from 2XX and a body with a message telling you the reason of the error.</p>
+<p>You will get an HTTP status code different from 2XX and a body with a message telling you the reason of the error.</p>
 <h3 id='sign-in'>Sign-in</h3>
 <p>Allows your users to get tokens to be able to make request to restricted endpoints.
-Remember that before a user can be signed in into your application, <strong>its email must be confirmed</strong></p>
-<h6 id='endpoint-2'>Endpoint</h6>
+Remember that before a user can be signed in into your application, <strong>their email must be confirmed</strong></p>
+<h4 id='endpoint-2'>Endpoint</h4>
 <p><code>http request
-POST https://&lt;baseURL&gt;/auth/sign-in
+POST https://&lt;httpURL&gt;/auth/sign-in
 </code></p>
-<h6 id='request-body-2'>Request body</h6>
-<blockquote>
-<p>Sign-in request body</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h4 id='request-body-2'>Request body</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"clientId"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"username"</span><span class="p">:</span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"password"</span><span class="p">:</span><span class="s2">"string"</span><span class="w">
@@ -1611,18 +1611,14 @@ POST https://&lt;baseURL&gt;/auth/sign-in
 </tr>
 <tr>
 <td><em>username</em></td>
-<td>The username of the user you want to sign in. It must be previously signed up</td>
+<td>The username of the user you want to sign in. They must have previously signed up</td>
 </tr>
 <tr>
 <td><em>password</em></td>
 <td>The password used to sign up the user.</td>
 </tr>
 </tbody></table>
-<h6 id='response-2'>Response</h6>
-<blockquote>
-<p>Sign-in response body</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h4 id='response-2'>Response</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"accessToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"expiresIn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"refreshToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1666,18 +1662,16 @@ POST https://&lt;baseURL&gt;/auth/sign-in
 <p>Finalizes the user session by cancelling their tokens.</p>
 <h6 id='endpoint-3'>Endpoint</h6>
 <p><code>http request
-POST https://&lt;baseURL&gt;/auth/sign-out
+POST https://&lt;httpURL&gt;/auth/sign-out
 </code></p>
 <h6 id='request-body-3'>Request body</h6>
 <blockquote>
-<p>Sign-out request body
-<code>json
-{
-    &quot;accessToken&quot;:&quot;string&quot;
-}
-</code></p>
+<p>Sign-out request body</p>
 </blockquote>
-
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"accessToken"</span><span class="p">:</span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1701,38 +1695,274 @@ POST https://&lt;baseURL&gt;/auth/sign-out
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>You will get a HTTP status code different from 2XX and a body with a message telling you the reason of the error.</p>
-<h2 id='write-api-commands-submission'>Write API (commands submission)</h2>
+<h2 id='commands-and-readmodels-api'>Commands and ReadModels API</h2>
+<p>This is the main API of your application, as it allows you to:</p>
+
 <ul>
-<li>[ ] TODO: Improve this documentation</li>
+<li><em>Modify</em> data by <strong>sending commands</strong></li>
+<li><em>Read</em> data by <strong>querying read models</strong></li>
+<li><em>Receive data in real time</em> by <strong>subscribing to read models</strong> </li>
 </ul>
 
-<p><code>POST https://&lt;baseURL&gt;/commands</code></p>
-<h4 id='request-body-4'>Request body:</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"typeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ChangeCartItem"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"cartId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-10"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+<p>All this is done through <a href="https://graphql.org/">GraphQL</a>, a query language for APIs that has useful advantages over simple REST APIs.</p>
+
+<p>If you are not familiar with GraphQL, then, first of all, don&#39;t worry! 
+<em>Using</em> a GraphQL API is simple and straightforward.
+<em>Implementing it</em> on the server side is the hardest part, as you need to define your schema, operation, resolvers, etc.
+Luckily, you can forget about that because it is already done by Booster.</p>
+
+<aside class="notice">
+The GraphQL API is fully <strong>auto-generated</strong> based on your <em>commands</em> and <em>read models</em>
+</aside>
+<h3 id='relationship-between-graphql-operations-and-commands-and-read-models'>Relationship between GraphQL operations and commands and read models</h3>
+<p>GraphQL defines three kinds of operations that you can use: <em>mutations</em>, <em>queries</em>, and <em>subscriptions</em>. </p>
+
+<p>The names are pretty meaningful, but we can say that you use a <code>mutation</code> when you want to change data, a <code>query</code> when you want to get
+data on-demand, and a <code>subscription</code> when you want to receive data at the moment it is updated.</p>
+
+<p>Knowing this, you can infer the relationship between those operations and your Booster components:</p>
+
+<ul>
+<li>You <em>send</em> a <strong>command</strong> using a <strong>mutation</strong></li>
+<li>You <em>read</em> a <strong>read model</strong> using a <strong>query</strong></li>
+<li>You <em>subscribe</em> to a <strong>read model</strong> using a <strong>subscription</strong> </li>
+</ul>
+<h3 id='how-to-send-graphql-request'>How to send GraphQL request</h3>
+<p>GraphQL uses two existing protocols: </p>
+
+<ul>
+<li><em>HTTP</em> for <code>mutation</code> and <code>query</code> operations</li>
+<li><em>WebSocket</em> for <code>subscription</code> operations</li>
+</ul>
+
+<p>The reason for the WebSocket protocol is that, in order for subscriptions to work, there must be a way for the server to send data
+to clients when it is changed. HTTP doesn&#39;t allow that, as it is the client the one which always initiates the request.</p>
+
+<p>This is the reason why Booster provisions two main URLs: the <strong>httpURL</strong> and the <strong>websocketURL</strong> (you can see them after
+deploying your application). You need to use the &quot;httpURL&quot; to send GraphQL queries and mutations, and the &quot;websocketURL&quot;
+to send subscriptions.</p>
+
+<p>Therefore:</p>
+
+<ul>
+<li>To send a GraphQL mutation/query, you send an HTTP request to <em>&quot;<httpURL>/graphql&quot;</em>, with <em>method POST</em>, and a <em>JSON-encoded body</em> with the mutation/query deatils.</li>
+<li>To send a GraphQL subscription, you first connect to the <em>websocketURL</em>, and then send a <em>JSON-encoded message</em> with the subscription details.</li>
+</ul>
+
+<p>Check the following section for details and examples.</p>
+
+<aside class="notice">
+You normally don't need to deal with this low-level details. There are plenty of GraphQL clients for sending request manually
+(like <a href="https://postwoman.io/">Postwoman</a>) or libraries you can use in the client-side of your application
+(like <a href="https://www.apollographql.com/">Apollo</a>)
+</aside>
+<h3 id='sending-commands'>Sending commands</h3>
+<p>As mentioned in the previous section, we need to use a &quot;mutation&quot; to send a command. The structure of a mutation (the body
+of the request) is the following:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">command_name</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">input_field_list</span><span class="w">
+  </span><span class="p">})</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Where:</p>
+
+<ul>
+<li><em>command_name</em> is the name of the class corresponding to the command you want to send</li>
+<li><em>field_list</em> is list of pairs in the form of <code>fieldName: fieldValue</code> containing the data of your command. The field names
+correspond to the names of the properties you defined in the command class. </li>
+</ul>
+
+<p>Check the examples where we send a command named &quot;ChangeCart&quot; that will add/remove an item to/from a shopping cart. The 
+command requires the ID of the cart (<code>cartId</code>), the item identifier (<code>sku</code>) and the quantity of units we are adding/removing
+(<code>quantity</code>).</p>
+
+<aside class="notice">
+Remember that in case you want to send a command that is restricted to a specific set of roles, you must send the <strong>access
+token</strong> in the <strong>"Authorization"</strong> header: <em>"Authorization: Bearer &lt;token retrieved upon sign-in&gt;"</em>
+</aside>
+
+<blockquote>
+<p>Using a GraphQL-specific client:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>URL: "&lt;httpURL&gt;/graphql"
+</code></pre></div><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">ChangeCart</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">cartId</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="w">
+    </span><span class="n">sku</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC_01"</span><span class="w">
+    </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+  </span><span class="p">})</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Equivalent bare HTTP request:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>URL: "&lt;httpURL&gt;/graphql"
+METHOD: "POST"
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"query"</span><span class="p">:</span><span class="s2">"mutation { ChangeCart(input: { cartId: </span><span class="se">\"</span><span class="s2">demo</span><span class="se">\"</span><span class="s2"> sku: </span><span class="se">\"</span><span class="s2">ABC_01</span><span class="se">\"</span><span class="s2"> quantity: 2 }) }"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Response:
+<code>json
+{
+  &quot;data&quot;: {
+    &quot;ChangeCart&quot;: true
+  }
+}
+</code></p>
+</blockquote>
+<h3 id='reading-read-models'>Reading read models</h3>
+<p>To read a specific read model, we need to use a &quot;query&quot; operation. The structure of the &quot;query&quot; (the body
+of the request) is the following:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">read_model_name</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;id of the read model&gt;"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">selection_field_list</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id='read-api-retrieve-a-read-model'>Read API (retrieve a read model)</h2>
+</span></code></pre></div>
+<p>Where:</p>
+
 <ul>
-<li>[ ] Improve this documentation</li>
+<li><em>read_model_name</em> is the name of the class corresponding to the read model you want to retrieve.</li>
+<li><em>&lt;id of the read model&gt;</em> is the ID of the specific read model instance you are interested in.</li>
+<li><em>selection_field_list</em> is a list with the names of the specific read model fields you want to get as response.</li>
 </ul>
-<h3 id='get-a-list'>Get a list</h3>
-<p><code>GET https://&lt;baseURL&gt;/readmodels/&lt;read model class name&gt;</code></p>
 
-<p>Example:</p>
+<p>Check the examples where we send a query to read a read model named &quot;CartReadModel&quot; whose ID is &quot;demo&quot; and we get back as
+response its <code>id</code> and the list of cart <code>items</code></p>
 
-<p><code>GET https://&lt;baseURL&gt;/readmodels/CartReadModel</code></p>
-<h3 id='get-a-specific-read-model'>Get a specific read model</h3>
-<p><code>GET https://&lt;baseURL&gt;/readmodels/&lt;read model class name&gt;/&lt;read model ID&gt;</code></p>
+<aside class="notice">
+Remember that in case you want to query a read model that is restricted to a specific set of roles, you must send the <strong>access
+token</strong> in the <strong>"Authorization"</strong> header: <em>"Authorization: Bearer &lt;token retrieved upon sign-in&gt;"</em>
+</aside>
 
-<p>Example:</p>
+<blockquote>
+<p>Using a GraphQL-specific client:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>URL: "&lt;httpURL&gt;/graphql"
+</code></pre></div><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">CartReadModel</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">items</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Equivalent bare HTTP request:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>URL: "&lt;httpURL&gt;/graphql"
+METHOD: "POST"
+</code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"query"</span><span class="p">:</span><span class="s2">"query { CartReadModel(id: </span><span class="se">\"</span><span class="s2">demo</span><span class="se">\"</span><span class="s2">) { id items } }"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"CartReadModel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC_01"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='subscribing-to-read-models'>Subscribing to read models</h3>
+<p>To subscribe to a specific read model, we need to use a &quot;subscription&quot; operation, and it must be <em>sent through the <strong>websocketURL</strong></em>.</p>
 
-<p><code>GET https://&lt;baseURL&gt;/readmodels/CartReadModel/42</code></p>
-<h1 id='frequently-asked-questions'>Frequently asked questions</h1>
+<p>Before sending any subscription, you need to <em>connect</em> to the web socket to open the two-way communication channel. This connection
+is done differently depending on the client/library you use to manage web sockets. In this section, we will show examples 
+using the <a href="https://github.com/websockets/wscat">&quot;wscat&quot;</a> command line program. </p>
+
+<p>Once you have connected successfully, you can use this channel to:</p>
+
+<ul>
+<li>Send the subscription messages</li>
+<li>Listen for messages sent by the server with data corresponding to your active subscriptions. </li>
+</ul>
+
+<p>The structure of the &quot;subscription&quot; (the body of the message) is exactly the same as the &quot;query&quot; operation:</p>
+<div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">subscription</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">read_model_name</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;id of the read model&gt;"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">selection_field_list</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Where:</p>
+
+<ul>
+<li><em>read_model_name</em> is the name of the class corresponding to the read model you want to subscribe to.</li>
+<li><em>&lt;id of the read model&gt;</em> is the ID of the specific read model instance you are interested in.</li>
+<li><em>selection_field_list</em> is a list with the names of the specific read model fields you want to get when data is sent back to you.</li>
+</ul>
+
+<p>In the following examples we use <a href="https://github.com/websockets/wscat">&quot;wscat&quot;</a> to connect to the web socket and send a subscription
+to the read model <code>CartReadModel</code> with ID &quot;demo&quot;</p>
+
+<aside class="notice">
+Remember that in case you want to subscribe to a read model that is restricted to a specific set of roles, you must send, 
+in the <em>connection operation</em>, the <strong>access token</strong> in the <strong>"Authorization"</strong> header: 
+<em>"Authorization: Bearer &lt;token retrieved upon sign-in&gt;"</em>
+</aside>
+
+<blockquote>
+<p>Connecting to the web socket:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight sh tab-shell"><code> wscat <span class="nt">-c</span> &lt;websocketURL&gt;
+</code></pre></div>
+<blockquote>
+<p>Sending a message with the subscription</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"subscription { CartReadModel(id:</span><span class="se">\"</span><span class="s2">demo</span><span class="se">\"</span><span class="s2">) { id items } }"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>After a successful subscription, you won&#39;t receive anything in return. Now, every time the read model you subscribed to
+is modified, a new incoming message will appear in the socket with the updated version of the read model. This message
+will have exactly the same format as if you were done a query with the same parameters.</p>
+
+<p>Following the previous example, we now send a command (using a &quot;mutation&quot; operation) that adds
+a new item with sku &quot;ABC_02&quot; to the <code>CartReadModel</code>. After it has been added, we receive the updated version of the read model through the
+socket.</p>
+
+<blockquote>
+<p>Send the Command</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>URL: "&lt;httpURL&gt;/graphql"
+</code></pre></div><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">ChangeCart</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">cartId</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="w">
+    </span><span class="n">sku</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC_02"</span><span class="w">
+    </span><span class="n">quantity</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+  </span><span class="p">})</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The following message appears in the socket</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"CartReadModel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"demo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC_01"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"sku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC_02"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h1 id='frequently-asked-questions'>Frequently asked questions</h1>
 <p><strong>1.- When deploying my application in AWS for the first time, I got an error saying <em>&quot;StagingBucket <your app name>-toolkit-bucket already exists&quot;</em></strong></p>
 
 <p>When you deploy a Booster application to AWS, an S3 bucket needs to be created to upload the application code. Booster names that bucket
