@@ -114,7 +114,7 @@ in the popup of the website. Save the file. You are ready to go!
 
 ### Multiple AWS Accounts
 
-In case you're using multiple AWS accounts and not depending on the default profile, you will need to add a `region` field under the profile we will be using in the `credentials` file as seen on the right.
+In case you are using multiple AWS accounts and not depending on the default profile, you will need to add a `region` field under the profile we will be using in the `credentials` file as seen on the right.
 
 ```ini
 [default]
