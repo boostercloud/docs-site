@@ -112,6 +112,24 @@ Now create a folder called `.aws` under your home folder, and a file called
 Paste the template you see on the right, and fill with the keys that appeared
 in the popup of the website. Save the file. You are ready to go!
 
+### Multiple AWS Accounts
+
+In case you're using multiple AWS accounts and not depending on the default profile, you will need to add a `region` field under the profile we will be using in the `credentials` file as seen on the right.
+
+```ini
+[default]
+aws_access_key_id = <YOUR ACCESS KEY ID>
+aws_secret_access_key = <YOUR SECRET ACCESS KEY>
+region=<Region you want to deploy the application to>
+
+[other_profile]
+aws_access_key_id = <YOUR ACCESS KEY ID>
+aws_secret_access_key = <YOUR SECRET ACCESS KEY>
+region=<Region you want to deploy the application to>
+```
+
+AWS allows for a `config` file to be created, defining the region to deploy to, but this file will only work for the default profile.
+
 ## Installing the Booster CLI
 
 Booster comes with a command line tool that generates boilerplate code, and also,
